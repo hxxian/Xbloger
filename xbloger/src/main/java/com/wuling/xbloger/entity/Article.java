@@ -1,5 +1,7 @@
 package com.wuling.xbloger.entity;
 
+import java.util.Date;
+
 /**
  * @Author: xian
  * @Description: 文章详情
@@ -12,4 +14,6 @@ public class Article {
     private String title;
     private String content;
 
+    private Date gmtCreate;
+    private Date gmtUpdate;
 }
