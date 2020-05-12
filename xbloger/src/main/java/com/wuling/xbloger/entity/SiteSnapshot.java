@@ -1,5 +1,8 @@
 package com.wuling.xbloger.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
 /**
@@ -7,6 +10,8 @@ import java.util.Date;
  * @Description: 网站信息快照
  * @Date:create in 2020/5/12 8:02
  */
+@Setter
+@Getter
 public class SiteSnapshot {
 
     private Integer siteId;

@@ -1,5 +1,8 @@
 package com.wuling.xbloger.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
 /**
@@ -7,6 +10,8 @@ import java.util.Date;
  * @Description: 文章信息快照
  * @Date:create in 2020/5/12 8:12
  */
+@Setter
+@Getter
 public class ArticleSnapshot {
 
     private Long sid;
@@ -25,4 +30,6 @@ public class ArticleSnapshot {
     // 评论数
     private Integer commentCount;
 
+    private Date gmtCreate;
+    private Date gmtUpdate;
 }
