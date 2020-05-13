@@ -3,6 +3,8 @@ package com.wuling.xbloger.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 /**
  * @Author: xian
  * @Description: 文章类别
@@ -15,4 +17,6 @@ public class ArticleType {
     private Integer typeId;
     private String typeName;
 
+    private Date gmtCreate;
+    private Date gmtUpdate;
 }
