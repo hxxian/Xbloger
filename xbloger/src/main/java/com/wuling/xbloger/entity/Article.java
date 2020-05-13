@@ -18,6 +18,7 @@ public class Article {
     private Integer typeId;
     private String title;
     private String content;
+    private String digest;
 
     private Date gmtCreate;
     private Date gmtUpdate;
