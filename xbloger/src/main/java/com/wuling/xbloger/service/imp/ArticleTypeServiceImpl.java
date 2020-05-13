@@ -31,7 +31,7 @@ public class ArticleTypeServiceImpl implements ArticleTypeService {
         List<ArticleType> articleTypes = articleTypeMapper.listAll();
         return articleTypes;
     }
-    
+
     private ArticleType buildArticleType(String typeName) {
         ArticleType articleType = new ArticleType();
         articleType.setTypeName(typeName);

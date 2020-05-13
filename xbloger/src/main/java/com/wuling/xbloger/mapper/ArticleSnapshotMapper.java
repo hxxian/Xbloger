@@ -13,7 +13,7 @@ public interface ArticleSnapshotMapper {
     List<ArticleSnapshot> listArticleSnap(Integer offset, Integer pageSize);
 
     @Insert("insert into article_snapshot(aid, title, digest, publish_time, gmt_create, gmt_update) " +
-            "values(#{articleId}, #{title}, #{digest}, #{publishTime}, #{gmrCreate}, #{gmtUpdate})")
+            "values(#{articleId}, #{title}, #{digest}, #{publishTime}, #{gmtCreate}, #{gmtUpdate})")
     void addArticleSnap(ArticleSnapshot snapshot);
 
 
