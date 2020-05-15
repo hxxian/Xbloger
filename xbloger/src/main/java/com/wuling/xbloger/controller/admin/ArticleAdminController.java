@@ -21,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("admin/article")
-public class ArticleController {
+public class ArticleAdminController {
 
     @Autowired
     private ArticleTypeService articleTypeService;

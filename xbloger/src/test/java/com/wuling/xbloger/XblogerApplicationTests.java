@@ -1,6 +1,6 @@
 package com.wuling.xbloger;
 
-import com.wuling.xbloger.controller.admin.ArticleController;
+import com.wuling.xbloger.controller.admin.ArticleAdminController;
 import com.wuling.xbloger.entity.Article;
 import com.wuling.xbloger.mapper.ArticleMapper;
 import com.wuling.xbloger.mapper.ArticleSnapshotMapper;
@@ -21,7 +21,7 @@ class XblogerApplicationTests {
     @Autowired
     private ArticleService articleService;
     @Autowired
-    private ArticleController articleController;
+    private ArticleAdminController articleAdminController;
 
 
     @Test
