@@ -1,5 +1,6 @@
 package com.wuling.xbloger;
 
+import com.wuling.xbloger.controller.admin.ArticleController;
 import com.wuling.xbloger.entity.Article;
 import com.wuling.xbloger.mapper.ArticleMapper;
 import com.wuling.xbloger.mapper.ArticleSnapshotMapper;
@@ -19,6 +20,8 @@ class XblogerApplicationTests {
     private ArticleSnapshotMapper articleSnapshotMapper;
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private ArticleController articleController;
 
 
     @Test
@@ -39,6 +42,10 @@ class XblogerApplicationTests {
         String content = "test content";
         String digest = "test digest";
         articleService.addArticle(typeId, title, content, digest);
+    }
+
+    @Test
+    void testArticleController() {
     }
 
 }

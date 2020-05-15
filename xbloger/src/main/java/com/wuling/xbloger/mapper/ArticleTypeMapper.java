@@ -18,10 +18,11 @@ public interface ArticleTypeMapper {
     @Insert("insert into article_type(type_name, gmt_create, gmt_update) values(#{typeName}, #{gmtCreate}, #{gmtUpdate})")
     void addArticleType(ArticleType articleType);
 
-    @Select("select id, type_name from article_type")
+    @Select("select id, type_name, gmt_create from article_type")
     @Results({
             @Result(property = "typeId" ,column = "id"),
-            @Result(property = "typeName" ,column = "type_name")
+            @Result(property = "typeName" ,column = "type_name"),
+            @Result(property = "gmtCreate" ,column = "gmt_create"),
     })
     List<ArticleType> listAll();
 }
