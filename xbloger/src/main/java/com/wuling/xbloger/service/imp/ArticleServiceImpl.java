@@ -71,6 +71,18 @@ public class ArticleServiceImpl implements ArticleService {
         return articleSnapshotMapper.listArticleSnap(offset, ADMIN_ARTICLE_PAGE_SIZE);
     }
 
+    @Override
+    public List<ArticleSnapshot> listShowArticleSnap(Integer typeId, Integer page) {
+        if (page <= 0) {
+            page = 1;
+        }
+        int offset = (page - 1) * ARTICLE_PAGE_SIZE;
+        if (typeId > 0) {
+            return articleSnapshotMapper.listShowArticleSnapByTypeId(typeId, offset, ARTICLE_PAGE_SIZE);
+        }
+        return articleSnapshotMapper.listShowArticleSnap(offset, ARTICLE_PAGE_SIZE);
+    }
+
     private Article genArticle(Integer typeId, String title, String content, String digest) {
         Article article = new Article();
         article.setTypeId(typeId);

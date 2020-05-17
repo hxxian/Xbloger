@@ -49,4 +49,13 @@ public interface ArticleService {
      * @return
      */
     List<ArticleSnapshot> listArticleSnap(Integer page);
+
+    /**
+     * 分页查询显示的文章快照列表
+     *
+     * @param typeId
+     * @param page
+     * @return
+     */
+    List<ArticleSnapshot> listShowArticleSnap(Integer typeId, Integer page);
 }
