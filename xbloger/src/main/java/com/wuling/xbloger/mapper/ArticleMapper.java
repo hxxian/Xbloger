@@ -1,13 +1,16 @@
 package com.wuling.xbloger.mapper;
 
 import com.wuling.xbloger.entity.Article;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 public interface ArticleMapper {
 
     @Select("select * from article_info where id = #{articleId}")
+    @Results({
+            @Result(property = "articleId", column = "article_id"),
+            @Result(property = "typeId", column = "type_id"),
+            @Result(property = "gmtCreate", column = "gmt_create")
+    })
     Article getById(Long articleId);
 
     @Insert("insert into article_info(type_id, title, content, digest, gmt_create, gmt_update) " +
