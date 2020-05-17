@@ -1,5 +1,6 @@
 package com.wuling.xbloger.controller.admin;
 
+import com.wuling.xbloger.controller.admin.request.AddArticleReq;
 import com.wuling.xbloger.entity.Article;
 import com.wuling.xbloger.entity.ArticleType;
 import com.wuling.xbloger.service.ArticleService;
@@ -40,4 +41,13 @@ public class ArticleAdminController {
         return ResponseEntity.ok(articleTypes);
     }
 
+    @PostMapping()
+    public ResponseEntity<Void> addOrUpdateArticle(AddArticleReq req) {
+        if (req.getArticleId() != null) {
+            // TODO 更新
+        } else {
+            articleService.addArticle(req.getTypeId(), req.getTitle(), req.getContent(), req.getDigest());
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(null);
+    }
 }

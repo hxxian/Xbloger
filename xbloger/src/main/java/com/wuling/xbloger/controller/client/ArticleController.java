@@ -27,13 +27,13 @@ public class ArticleController {
     }
 
 
-    @GetMapping("page/${page}")
-    public ResponseEntity<List<ArticleSnapshot>> listArticleByPage(@PathVariable(value = "page") Integer page) {
+    @GetMapping("page/{page}")
+    public ResponseEntity<List<ArticleSnapshot>> listArticleByPage(Integer page) {
         return null;
     }
 
-    @GetMapping("info/${articleId}")
-    public ResponseEntity<AricleVo> getArticle(@PathVariable(value = "articleId") Long articleId) {
+    @GetMapping("info/{articleId}")
+    public ResponseEntity<AricleVo> getArticle(Long articleId) {
         return null;
     }
 
