@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author: wu_ling
@@ -19,6 +20,9 @@ import java.util.Date;
 @Service
 @Slf4j
 public class ArticleServiceImpl implements ArticleService {
+
+    private final Integer ARTICLE_PAGE_SIZE = 10;
+    private final Integer ADMIN_ARTICLE_PAGE_SIZE = 20;
 
     @Autowired
     private ArticleMapper articleMapper;
@@ -43,12 +47,31 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public void updateArticle(Long articleId, Integer typeId, String title, String content, String digest) {
+        Article article = genArticle(typeId, title, content, digest);
+        article.setArticleId(articleId);
+        articleMapper.updateArticle(article);
+
+        ArticleSnapshot snapshot = genArticleSnapshot(article);
+        articleSnapshotMapper.updateArticleSnap(snapshot);
+    }
+
+    @Override
     public Article getArticle(Long articleId) {
         Article article = articleMapper.getById(articleId);
         return article;
     }
 
-    private Article genArticle(int typeId, String title, String content, String digest) {
+    @Override
+    public List<ArticleSnapshot> listArticleSnap(Integer page) {
+        if (page <= 0) {
+            page = 1;
+        }
+        int offset = (page - 1) * ADMIN_ARTICLE_PAGE_SIZE;
+        return articleSnapshotMapper.listArticleSnap(offset, ADMIN_ARTICLE_PAGE_SIZE);
+    }
+
+    private Article genArticle(Integer typeId, String title, String content, String digest) {
         Article article = new Article();
         article.setTypeId(typeId);
         article.setTitle(title);

@@ -7,7 +7,7 @@ public interface ArticleMapper {
 
     @Select("select * from article_info where id = #{articleId}")
     @Results({
-            @Result(property = "articleId", column = "article_id"),
+            @Result(property = "articleId", column = "id"),
             @Result(property = "typeId", column = "type_id"),
             @Result(property = "gmtCreate", column = "gmt_create")
     })
@@ -17,4 +17,8 @@ public interface ArticleMapper {
             "values(#{typeId}, #{title}, #{content}, #{digest}, #{gmtCreate}, #{gmtUpdate})")
     @Options(useGeneratedKeys = true, keyProperty = "articleId")
     void insertArticle(Article article);
+
+    @Update("update article_info set type_id = #{typeId}, title = #{title}, digest = #{digest}, content = #{content}, " +
+            "gmt_update = #{gmtUpdate} where id = #{articleId}")
+    void updateArticle(Article article);
 }

@@ -1,19 +1,16 @@
 package com.wuling.xbloger.mapper;
 
 import com.wuling.xbloger.entity.ArticleSnapshot;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 public interface ArticleSnapshotMapper {
 
     @Select("select * from article_snapshot where id >= " +
-            "(select id from article_snapshot limit #{offset}, 1 order by id) order by id limit #{pageSize} ")
+            "(select id from article_snapshot order by id limit #{offset}, 1) order by id limit #{pageSize} ")
     @Results({
-            @Result(property = "articleId", column = "article_id"),
+            @Result(property = "articleId", column = "aid"),
             @Result(property = "publishTime", column = "publish_time"),
             @Result(property = "showState", column = "show_state"),
             @Result(property = "readCount", column = "read_count"),
@@ -25,5 +22,6 @@ public interface ArticleSnapshotMapper {
             "values(#{articleId}, #{title}, #{digest}, #{publishTime}, #{gmtCreate}, #{gmtUpdate})")
     void addArticleSnap(ArticleSnapshot snapshot);
 
-
+    @Update("update article_snapshot set title = #{title}, digest = #{digest}, gmt_update = #{gmtUpdate} where aid = #{articleId}")
+    void updateArticleSnap(ArticleSnapshot snapshot);
 }

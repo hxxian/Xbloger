@@ -2,16 +2,14 @@ package com.wuling.xbloger.controller.admin;
 
 import com.wuling.xbloger.controller.admin.request.AddArticleReq;
 import com.wuling.xbloger.entity.Article;
+import com.wuling.xbloger.entity.ArticleSnapshot;
 import com.wuling.xbloger.entity.ArticleType;
 import com.wuling.xbloger.service.ArticleService;
 import com.wuling.xbloger.service.ArticleTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +27,7 @@ public class ArticleAdminController {
     @Autowired
     private ArticleService articleService;
 
+
     @PostMapping("type")
     public ResponseEntity<Void> addArticleType(String typeName) {
         articleTypeService.addArticleType(typeName);
@@ -43,11 +42,27 @@ public class ArticleAdminController {
 
     @PostMapping()
     public ResponseEntity<Void> addOrUpdateArticle(AddArticleReq req) {
-        if (req.getArticleId() != null) {
-            // TODO 更新
-        } else {
-            articleService.addArticle(req.getTypeId(), req.getTitle(), req.getContent(), req.getDigest());
+        if (req.getArticleId() != null && req.getArticleId() > 0) {
+            // 更新
+            articleService.updateArticle(req.getArticleId(), req.getTypeId(), req.getTitle(), req.getContent(), req.getDigest());
+
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
+
+        articleService.addArticle(req.getTypeId(), req.getTitle(), req.getContent(), req.getDigest());
+
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
+    }
+
+    @GetMapping("page/{page}")
+    public ResponseEntity<List<ArticleSnapshot>> listArticleSnaps(@PathVariable("page") Integer page) {
+        List<ArticleSnapshot> snapshots = articleService.listArticleSnap(page);
+        return ResponseEntity.ok(snapshots);
+    }
+
+    @GetMapping("info/{articleId}")
+    public ResponseEntity<Article> getArticleById(@PathVariable("articleId") Long articleId) {
+        Article article = articleService.getArticle(articleId);
+        return ResponseEntity.ok(article);
     }
 }
