@@ -2,6 +2,7 @@ package com.wuling.xbloger;
 
 import com.wuling.xbloger.controller.admin.ArticleAdminController;
 import com.wuling.xbloger.entity.Article;
+import com.wuling.xbloger.entity.bo.ArticleInfoBo;
 import com.wuling.xbloger.mapper.ArticleMapper;
 import com.wuling.xbloger.mapper.ArticleSnapshotMapper;
 import com.wuling.xbloger.service.ArticleService;
@@ -20,19 +21,12 @@ class XblogerApplicationTests {
     private ArticleSnapshotMapper articleSnapshotMapper;
     @Autowired
     private ArticleService articleService;
-    @Autowired
-    private ArticleAdminController articleAdminController;
 
 
     @Test
     void contextLoads() {
-        Article article = new Article();
-        article.setTypeId(1);
-        article.setTitle("test");
-        article.setContent("ajsdlfjaklsjflajsflas");
-        article.setGmtCreate(new Date());
-        article.setGmtUpdate(new Date());
-        articleMapper.insertArticle(article);
+        ArticleInfoBo bo = articleSnapshotMapper.getArticleInfoBoByArticleId(3L);
+        System.out.println();
     }
 
     @Test

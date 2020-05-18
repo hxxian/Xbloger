@@ -40,6 +40,7 @@ public class ObjectBuilder {
             articleInfoVo.setArticleId(article.getArticleId());
             articleInfoVo.setTitle(article.getTitle());
             articleInfoVo.setContent(article.getContent());
+            articleInfoVo.setTypeName(article.getTypeName());
         }
         return articleInfoVo;
     }

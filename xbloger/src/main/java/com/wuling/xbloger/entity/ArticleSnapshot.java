@@ -17,6 +17,7 @@ public class ArticleSnapshot {
     private Long sid;
     private Long articleId;
 
+    private Integer typeId;
     // 文章标题
     private String title;
     // 文章摘要

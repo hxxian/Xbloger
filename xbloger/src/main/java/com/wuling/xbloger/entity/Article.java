@@ -1,5 +1,6 @@
 package com.wuling.xbloger.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,4 +23,9 @@ public class Article {
 
     private Date gmtCreate;
     private Date gmtUpdate;
+
+    // 联表查询扩展字段
+
+    @JsonIgnore
+    private String typeName;
 }

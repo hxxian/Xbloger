@@ -96,6 +96,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     private ArticleSnapshot genArticleSnapshot(Article article) {
         ArticleSnapshot snapshot = new ArticleSnapshot();
+        snapshot.setTypeId(article.getTypeId());
         snapshot.setArticleId(article.getArticleId());
         snapshot.setDigest(article.getDigest());
         snapshot.setTitle(article.getTitle());

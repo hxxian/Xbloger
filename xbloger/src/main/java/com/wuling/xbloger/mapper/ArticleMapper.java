@@ -5,10 +5,11 @@ import org.apache.ibatis.annotations.*;
 
 public interface ArticleMapper {
 
-    @Select("select * from article_info where id = #{articleId}")
+    @Select("select a.*, t.type_name from article_info a, article_type t where a.id = #{articleId} and a.type_id = t.id")
     @Results({
             @Result(property = "articleId", column = "id"),
             @Result(property = "typeId", column = "type_id"),
+            @Result(property = "typeName", column = "type_name"),
             @Result(property = "gmtCreate", column = "gmt_create")
     })
     Article getById(Long articleId);
