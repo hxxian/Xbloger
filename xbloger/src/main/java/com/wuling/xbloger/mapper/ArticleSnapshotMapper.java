@@ -53,4 +53,10 @@ public interface ArticleSnapshotMapper {
 
     @Update("update article_snapshot set type_id = #{typeId}, title = #{title}, digest = #{digest}, gmt_update = #{gmtUpdate} where aid = #{articleId}")
     void updateArticleSnap(ArticleSnapshot snapshot);
+
+    @Update("update article_snapshot set read_count = read_count + #{increment} where aid = #{articleId}")
+    void updateArticleReadCount(Long articleId, Integer increment);
+
+    @Update("update article_snapshot set comment_count = comment_count + #{increment} where aid = #{articleId}")
+    void updateArticleCommentCount(Long articleId, Integer increment);
 }

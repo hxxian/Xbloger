@@ -58,4 +58,18 @@ public interface ArticleService {
      * @return
      */
     List<ArticleSnapshot> listShowArticleSnap(Integer typeId, Integer page);
+
+    /**
+     * 访问数自增1
+     *
+     * @param articleId
+     */
+    void increaseReadCount(Long articleId);
+
+    /**
+     * 评论数自增1
+     *
+     * @param articleId
+     */
+    void increaseCommentCount(Long articleId);
 }

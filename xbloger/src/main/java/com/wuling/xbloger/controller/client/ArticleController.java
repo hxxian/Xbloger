@@ -88,6 +88,7 @@ public class ArticleController {
         Article article = articleService.getArticle(articleId);
         if (article != null) {
             ArticleInfoVo infoVo = ObjectBuilder.buildArticleInfoVo(article);
+            articleService.increaseReadCount(articleId);
             return ResponseEntity.ok(infoVo);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);

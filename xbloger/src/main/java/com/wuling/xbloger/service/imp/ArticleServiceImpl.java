@@ -83,6 +83,19 @@ public class ArticleServiceImpl implements ArticleService {
         return articleSnapshotMapper.listShowArticleSnap(offset, ARTICLE_PAGE_SIZE);
     }
 
+    @Override
+    public void increaseReadCount(Long articleId) {
+        articleSnapshotMapper.updateArticleReadCount(articleId, 1);
+        // TODO 总访问数加1
+    }
+
+    @Override
+    public void increaseCommentCount(Long articleId) {
+        articleSnapshotMapper.updateArticleCommentCount(articleId, 1);
+        // TODO 总评论数加1
+    }
+
+
     private Article genArticle(Integer typeId, String title, String content, String digest) {
         Article article = new Article();
         article.setTypeId(typeId);
