@@ -1,16 +1,19 @@
-package com.wuling.xbloger.entity.vo;
+package com.wuling.xbloger.entity.bo;
 
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * @Author: wu_ling
- * @Date: 2020/5/16
- * @Desc: 首页文章快照VO
+ * @Date: 2020/5/19
+ * @Desc: TODO
  */
 @Setter
 @Getter
-public class HomeArticleVo {
+public class HomeArticleBO {
+
+    // 1 - 最新，2 - 最热
+    private Integer tag;
 
     private Long articleId;
     private String title;
