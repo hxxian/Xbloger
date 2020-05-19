@@ -1,9 +1,11 @@
 package com.wuling.xbloger.service.imp;
 
+import com.wuling.xbloger.constant.KeyIdConstant;
 import com.wuling.xbloger.entity.Article;
 import com.wuling.xbloger.entity.ArticleSnapshot;
 import com.wuling.xbloger.mapper.ArticleMapper;
 import com.wuling.xbloger.mapper.ArticleSnapshotMapper;
+import com.wuling.xbloger.mapper.SiteSnapshotMapper;
 import com.wuling.xbloger.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleMapper articleMapper;
     @Autowired
     private ArticleSnapshotMapper articleSnapshotMapper;
+    @Autowired
+    private SiteSnapshotMapper siteSnapshotMapper;
 
     @Override
     public Boolean addArticle(Integer typeId, String title, String content, String digest) {
@@ -38,6 +42,8 @@ public class ArticleServiceImpl implements ArticleService {
 
             ArticleSnapshot snapshot = genArticleSnapshot(article);
             articleSnapshotMapper.addArticleSnap(snapshot);
+
+            siteSnapshotMapper.updateAccessCount(KeyIdConstant.SITE_SNAPSHOT_ID, 1);
             return true;
         } catch (Exception e) {
             log.error("添加文章异常， e： ", e);
@@ -86,13 +92,12 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void increaseReadCount(Long articleId) {
         articleSnapshotMapper.updateArticleReadCount(articleId, 1);
-        // TODO 总访问数加1
     }
 
     @Override
     public void increaseCommentCount(Long articleId) {
         articleSnapshotMapper.updateArticleCommentCount(articleId, 1);
-        // TODO 总评论数加1
+        siteSnapshotMapper.updateCommentCount(KeyIdConstant.SITE_SNAPSHOT_ID, 1);
     }
 
 

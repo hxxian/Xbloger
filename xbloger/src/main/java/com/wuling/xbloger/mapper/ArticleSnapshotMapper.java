@@ -9,7 +9,7 @@ import java.util.List;
 public interface ArticleSnapshotMapper {
 
     @Select("select a.*, s.read_count from article_info a, article_snapshot s where a.id = #{articleId} and a.id = s.aid")
-    @Results(id = "snapshotMap", value = {
+    @Results({
             @Result(property = "article.typeId", column = "type_id"),
             @Result(property = "article.articleId", column = "aid"),
             @Result(property = "article.content", column = "content"),
