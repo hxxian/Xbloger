@@ -2,6 +2,7 @@ package com.wuling.xbloger.service;
 
 import com.wuling.xbloger.entity.Article;
 import com.wuling.xbloger.entity.ArticleSnapshot;
+import com.wuling.xbloger.entity.bo.HomeArticleBO;
 
 import java.util.List;
 
@@ -58,6 +59,27 @@ public interface ArticleService {
      * @return
      */
     List<ArticleSnapshot> listShowArticleSnap(Integer typeId, Integer page);
+
+    /**
+     * 获取最热文章
+     *
+     * @return
+     */
+    HomeArticleBO getHotArticle();
+
+    /**
+     * 获取最新文章
+     *
+     * @return
+     */
+    HomeArticleBO getLatestArticle();
+
+    /**
+     * 查询访问量最高的前7条
+     *
+     * @return
+     */
+    List<ArticleSnapshot> listHotArticleLimit7();
 
     /**
      * 访问数自增1

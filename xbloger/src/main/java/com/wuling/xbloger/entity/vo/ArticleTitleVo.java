@@ -13,6 +13,7 @@ import lombok.Setter;
 public class ArticleTitleVo {
 
     private Long articleId;
+    private Long publishTime;
     private String articleTitle;
 
 }

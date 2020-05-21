@@ -47,6 +47,28 @@ public interface ArticleSnapshotMapper {
     @ResultMap("snapshotMap")
     List<ArticleSnapshot> listShowArticleSnapByTypeId(Integer typeId, Integer offset, Integer pageSize);
 
+    /**
+     * 查询最新文章
+     *
+     * @return
+     */
+    @Select("select * from article_snapshot order by id desc limit 1")
+    @ResultMap("snapshotMap")
+    ArticleSnapshot getLatestArticle();
+
+    /**
+     * 查询浏览数最多的文章
+     *
+     * @return
+     */
+    @Select("select * from article_snapshot  where read_count = (select MAX(read_count) from article_snapshot)")
+    @ResultMap("snapshotMap")
+    ArticleSnapshot getHotArticle();
+
+    @ResultMap("snapshotMap")
+    @Select("select id, aid, title, publish_time from article_snapshot order by read_count desc limit 7")
+    List<ArticleSnapshot> listHotArticles();
+
     @Insert("insert into article_snapshot(typeId, aid, title, digest, publish_time, gmt_create, gmt_update) " +
             "values(#{typeId}, #{articleId}, #{title}, #{digest}, #{publishTime}, #{gmtCreate}, #{gmtUpdate})")
     void addArticleSnap(ArticleSnapshot snapshot);

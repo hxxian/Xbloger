@@ -17,5 +17,6 @@ public class HomeVo {
 
     private List<HomeArticleBO> articles;
     private List<ArticleTitleVo> articleTitles;
+    private String diaryContent;
 
 }

@@ -3,10 +3,12 @@ package com.wuling.xbloger.service.imp;
 import com.wuling.xbloger.constant.KeyIdConstant;
 import com.wuling.xbloger.entity.Article;
 import com.wuling.xbloger.entity.ArticleSnapshot;
+import com.wuling.xbloger.entity.bo.HomeArticleBO;
 import com.wuling.xbloger.mapper.ArticleMapper;
 import com.wuling.xbloger.mapper.ArticleSnapshotMapper;
 import com.wuling.xbloger.mapper.SiteSnapshotMapper;
 import com.wuling.xbloger.service.ArticleService;
+import com.wuling.xbloger.util.ObjectBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,6 +89,25 @@ public class ArticleServiceImpl implements ArticleService {
             return articleSnapshotMapper.listShowArticleSnapByTypeId(typeId, offset, ARTICLE_PAGE_SIZE);
         }
         return articleSnapshotMapper.listShowArticleSnap(offset, ARTICLE_PAGE_SIZE);
+    }
+
+    @Override
+    public HomeArticleBO getHotArticle() {
+        ArticleSnapshot hotArticle = articleSnapshotMapper.getHotArticle();
+        HomeArticleBO articleBO = ObjectBuilder.buildHomeArticleBO(2, hotArticle);
+        return articleBO;
+    }
+
+    @Override
+    public HomeArticleBO getLatestArticle() {
+        ArticleSnapshot latestArticle = articleSnapshotMapper.getLatestArticle();
+        HomeArticleBO articleBO = ObjectBuilder.buildHomeArticleBO(1, latestArticle);
+        return articleBO;
+    }
+
+    @Override
+    public List<ArticleSnapshot> listHotArticleLimit7() {
+        return articleSnapshotMapper.listHotArticles();
     }
 
     @Override
