@@ -8,14 +8,14 @@ import java.util.List;
 
 public interface ArticleSnapshotMapper {
 
-    @Select("select a.*, s.read_count from article_info a, article_snapshot s where a.id = #{articleId} and a.id = s.aid")
+    @Select("select a.id, a.type_id, a.title, a.content, t.type_name, s.read_count, s.publish_time from article_info a, " +
+            "article_type t, article_snapshot s where a.id = #{articleId} and a.id = s.aid and a.type_id = t.id")
     @Results({
-            @Result(property = "article.typeId", column = "type_id"),
-            @Result(property = "article.articleId", column = "aid"),
-            @Result(property = "article.content", column = "content"),
-            @Result(property = "article.title", column = "title"),
+            @Result(property = "articleId", column = "id"),
+            @Result(property = "typeId", column = "type_id"),
+            @Result(property = "typeName", column = "type_name"),
             @Result(property = "readCount", column = "read_count"),
-            @Result(property = "article.gmtCreate", column = "gmt_create")
+            @Result(property = "publishTime", column = "publish_time")
     })
     ArticleInfoBo getArticleInfoBoByArticleId(Long articleId);
 

@@ -3,6 +3,7 @@ package com.wuling.xbloger.controller.client;
 import com.wuling.xbloger.entity.Article;
 import com.wuling.xbloger.entity.ArticleSnapshot;
 import com.wuling.xbloger.entity.ArticleType;
+import com.wuling.xbloger.entity.bo.ArticleInfoBo;
 import com.wuling.xbloger.entity.vo.ArticleInfoVo;
 import com.wuling.xbloger.entity.vo.ArticleTitleVo;
 import com.wuling.xbloger.entity.vo.ArticleTypeVo;
@@ -83,9 +84,9 @@ public class ArticleController {
      */
     @GetMapping("info/{articleId}")
     public ResponseEntity<ArticleInfoVo> getArticle(@PathVariable("articleId") Long articleId) {
-        Article article = articleService.getArticle(articleId);
-        if (article != null) {
-            ArticleInfoVo infoVo = ObjectBuilder.buildArticleInfoVo(article);
+        ArticleInfoBo infoBo = articleService.getArticleInfoBo(articleId);
+        if (infoBo != null) {
+            ArticleInfoVo infoVo = ObjectBuilder.buildArticleInfoVo(infoBo);
             articleService.increaseReadCount(articleId);
             return ResponseEntity.ok(infoVo);
         }

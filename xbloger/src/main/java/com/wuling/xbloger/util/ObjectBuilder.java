@@ -3,6 +3,7 @@ package com.wuling.xbloger.util;
 import com.wuling.xbloger.entity.Article;
 import com.wuling.xbloger.entity.ArticleSnapshot;
 import com.wuling.xbloger.entity.ArticleType;
+import com.wuling.xbloger.entity.bo.ArticleInfoBo;
 import com.wuling.xbloger.entity.bo.HomeArticleBO;
 import com.wuling.xbloger.entity.vo.ArticleInfoVo;
 import com.wuling.xbloger.entity.vo.ArticleTitleVo;
@@ -47,15 +48,16 @@ public class ObjectBuilder {
         return articleBO;
     }
 
-    // TODO 待完善
-    public static ArticleInfoVo buildArticleInfoVo(Article article) {
+    public static ArticleInfoVo buildArticleInfoVo(ArticleInfoBo article) {
         ArticleInfoVo articleInfoVo = new ArticleInfoVo();
         if (article != null) {
-            articleInfoVo.setPublishTimestamp(article.getGmtCreate().getTime());
+            articleInfoVo.setPublishTimestamp(article.getPublishTimestamp());
             articleInfoVo.setArticleId(article.getArticleId());
             articleInfoVo.setTitle(article.getTitle());
+            articleInfoVo.setTypeId(article.getTypeId());
             articleInfoVo.setContent(article.getContent());
             articleInfoVo.setTypeName(article.getTypeName());
+            articleInfoVo.setReadCount(article.getReadCount());
         }
         return articleInfoVo;
     }

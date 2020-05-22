@@ -3,6 +3,7 @@ package com.wuling.xbloger.service.imp;
 import com.wuling.xbloger.constant.KeyIdConstant;
 import com.wuling.xbloger.entity.Article;
 import com.wuling.xbloger.entity.ArticleSnapshot;
+import com.wuling.xbloger.entity.bo.ArticleInfoBo;
 import com.wuling.xbloger.entity.bo.HomeArticleBO;
 import com.wuling.xbloger.mapper.ArticleMapper;
 import com.wuling.xbloger.mapper.ArticleSnapshotMapper;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @Author: wu_ling
@@ -62,6 +64,13 @@ public class ArticleServiceImpl implements ArticleService {
 
         ArticleSnapshot snapshot = genArticleSnapshot(article);
         articleSnapshotMapper.updateArticleSnap(snapshot);
+    }
+
+    @Override
+    public ArticleInfoBo getArticleInfoBo(Long articleId) {
+        ArticleInfoBo articleInfoBo = articleSnapshotMapper.getArticleInfoBoByArticleId(articleId);
+        Optional.ofNullable(articleInfoBo).ifPresent(a -> a.setPublishTimestamp(a.getPublishTime().getTime()));
+        return articleInfoBo;
     }
 
     @Override

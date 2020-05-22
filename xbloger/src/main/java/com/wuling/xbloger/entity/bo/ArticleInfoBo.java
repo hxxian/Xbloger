@@ -5,6 +5,8 @@ import com.wuling.xbloger.entity.ArticleSnapshot;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 /**
  * @Author: wu_ling
  * @Date: 2020/5/18
@@ -14,7 +16,13 @@ import lombok.Setter;
 @Setter
 public class ArticleInfoBo {
 
-    private Article article;
+    private Long articleId;
+    private Integer typeId;
+    private String typeName;
+    private String title;
+    private String content;
+    private Date publishTime;
+    private Long publishTimestamp;
     private Integer readCount;
 
 }
