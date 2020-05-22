@@ -2,10 +2,13 @@ package com.wuling.xbloger.service;
 
 import com.wuling.xbloger.entity.Article;
 import com.wuling.xbloger.entity.ArticleSnapshot;
-import com.wuling.xbloger.entity.bo.ArticleInfoBo;
+import com.wuling.xbloger.entity.bo.ArchiveBO;
+import com.wuling.xbloger.entity.bo.ArticleInfoBO;
 import com.wuling.xbloger.entity.bo.HomeArticleBO;
+import com.wuling.xbloger.entity.vo.ArticleTitleVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: wu_ling
@@ -42,7 +45,15 @@ public interface ArticleService {
      * @param articleId 文章ID
      * @return
      */
-    ArticleInfoBo getArticleInfoBo(Long articleId);
+    ArticleInfoBO getArticleInfoBo(Long articleId);
+
+    /**
+     * 查询所有文章基本信息
+     * 用于归档数据查询
+     *
+     * @return
+     */
+    Map<Long, List<ArticleTitleVO>> listArchives();
 
     /**
      * 查询文章详情

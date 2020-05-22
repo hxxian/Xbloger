@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ArticleTitleVo {
+public class ArticleTitleVO {
 
     private Long articleId;
     private Long publishTime;

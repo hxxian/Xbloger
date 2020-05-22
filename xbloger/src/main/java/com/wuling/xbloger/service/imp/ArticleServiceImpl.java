@@ -3,20 +3,23 @@ package com.wuling.xbloger.service.imp;
 import com.wuling.xbloger.constant.KeyIdConstant;
 import com.wuling.xbloger.entity.Article;
 import com.wuling.xbloger.entity.ArticleSnapshot;
-import com.wuling.xbloger.entity.bo.ArticleInfoBo;
+import com.wuling.xbloger.entity.bo.ArchiveBO;
+import com.wuling.xbloger.entity.bo.ArticleInfoBO;
 import com.wuling.xbloger.entity.bo.HomeArticleBO;
+import com.wuling.xbloger.entity.vo.ArticleTitleVO;
 import com.wuling.xbloger.mapper.ArticleMapper;
 import com.wuling.xbloger.mapper.ArticleSnapshotMapper;
 import com.wuling.xbloger.mapper.SiteSnapshotMapper;
 import com.wuling.xbloger.service.ArticleService;
+import com.wuling.xbloger.util.DateUtil;
 import com.wuling.xbloger.util.ObjectBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.time.*;
+import java.time.temporal.ChronoField;
+import java.util.*;
 
 /**
  * @Author: wu_ling
@@ -67,10 +70,38 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleInfoBo getArticleInfoBo(Long articleId) {
-        ArticleInfoBo articleInfoBo = articleSnapshotMapper.getArticleInfoBoByArticleId(articleId);
+    public ArticleInfoBO getArticleInfoBo(Long articleId) {
+        ArticleInfoBO articleInfoBo = articleSnapshotMapper.getArticleInfoBoByArticleId(articleId);
         Optional.ofNullable(articleInfoBo).ifPresent(a -> a.setPublishTimestamp(a.getPublishTime().getTime()));
         return articleInfoBo;
+    }
+
+    @Override
+    public Map<Long, List<ArticleTitleVO>> listArchives() {
+        List<ArticleSnapshot> snapshots = articleSnapshotMapper.listAllArticleWithBasicInfo();
+        if (snapshots != null && !snapshots.isEmpty()) {
+            Map<Long, List<ArticleTitleVO>> map = new HashMap<>();
+            for (ArticleSnapshot s : snapshots) {
+                LocalDateTime publishTime = DateUtil.date2LocalDateTime(s.getPublishTime());
+                LocalDateTime localDateTime = publishTime.withDayOfMonth(1).withHour(0).withMinute(0)
+                        .withSecond(0).withNano(0);
+                long second = localDateTime.toEpochSecond(ZoneOffset.of("+8"));
+                List<ArticleTitleVO> list = null;
+                if (map.containsKey(second)) {
+                    list = map.get(second);
+                } else {
+                    list = new ArrayList<>();
+                }
+
+                ArticleTitleVO titleVO = ObjectBuilder.buildArticleTitleVo(s);
+                list.add(titleVO);
+
+                map.put(second, list);
+            }
+
+            return map;
+        }
+        return Collections.emptyMap();
     }
 
     @Override

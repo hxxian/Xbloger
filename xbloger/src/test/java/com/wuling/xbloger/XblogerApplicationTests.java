@@ -1,16 +1,12 @@
 package com.wuling.xbloger;
 
-import com.wuling.xbloger.controller.admin.ArticleAdminController;
-import com.wuling.xbloger.entity.Article;
-import com.wuling.xbloger.entity.bo.ArticleInfoBo;
+import com.wuling.xbloger.entity.bo.ArticleInfoBO;
 import com.wuling.xbloger.mapper.ArticleMapper;
 import com.wuling.xbloger.mapper.ArticleSnapshotMapper;
 import com.wuling.xbloger.service.ArticleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Date;
 
 @SpringBootTest
 class XblogerApplicationTests {
@@ -25,7 +21,7 @@ class XblogerApplicationTests {
 
     @Test
     void contextLoads() {
-        ArticleInfoBo bo = articleSnapshotMapper.getArticleInfoBoByArticleId(3L);
+        ArticleInfoBO bo = articleSnapshotMapper.getArticleInfoBoByArticleId(3L);
         System.out.println();
     }
 

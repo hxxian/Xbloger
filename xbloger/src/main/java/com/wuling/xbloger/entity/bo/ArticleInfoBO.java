@@ -14,7 +14,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class ArticleInfoBo {
+public class ArticleInfoBO {
 
     private Long articleId;
     private Integer typeId;

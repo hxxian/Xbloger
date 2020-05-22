@@ -3,8 +3,8 @@ package com.wuling.xbloger.controller.client;
 import com.wuling.xbloger.entity.ArticleSnapshot;
 import com.wuling.xbloger.entity.Diary;
 import com.wuling.xbloger.entity.bo.HomeArticleBO;
-import com.wuling.xbloger.entity.vo.ArticleTitleVo;
-import com.wuling.xbloger.entity.vo.HomeVo;
+import com.wuling.xbloger.entity.vo.ArticleTitleVO;
+import com.wuling.xbloger.entity.vo.HomeVO;
 import com.wuling.xbloger.service.ArticleService;
 import com.wuling.xbloger.service.DiaryService;
 import com.wuling.xbloger.util.ObjectBuilder;
@@ -34,8 +34,8 @@ public class HomeController {
     private DiaryService diaryService;
 
     @GetMapping
-    public ResponseEntity<HomeVo> getHomeVo() {
-        HomeVo homeVo = new HomeVo();
+    public ResponseEntity<HomeVO> getHomeVo() {
+        HomeVO homeVo = new HomeVO();
         List<HomeArticleBO> articleBOList = new ArrayList<>(2);
         HomeArticleBO hotArticle = articleService.getHotArticle();
         HomeArticleBO latestArticle = articleService.getLatestArticle();
@@ -45,7 +45,7 @@ public class HomeController {
 
         List<ArticleSnapshot> snapshots = articleService.listHotArticleLimit7();
         if (snapshots != null && !snapshots.isEmpty()) {
-            List<ArticleTitleVo> articleTitleVos
+            List<ArticleTitleVO> articleTitleVos
                     = snapshots.stream().map(a -> ObjectBuilder.buildArticleTitleVo(a)).collect(Collectors.toList());
             Optional.ofNullable(articleTitleVos).ifPresent(a -> homeVo.setArticleTitles(a));
         }

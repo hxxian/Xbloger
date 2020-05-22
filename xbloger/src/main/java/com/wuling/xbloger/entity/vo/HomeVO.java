@@ -13,10 +13,10 @@ import java.util.List;
  */
 @Setter
 @Getter
-public class HomeVo {
+public class HomeVO {
 
     private List<HomeArticleBO> articles;
-    private List<ArticleTitleVo> articleTitles;
+    private List<ArticleTitleVO> articleTitles;
     private String diaryContent;
 
 }

@@ -1,7 +1,7 @@
 package com.wuling.xbloger.controller.client.response;
 
-import com.wuling.xbloger.entity.vo.ArticleTitleVo;
-import com.wuling.xbloger.entity.vo.ArticleTypeVo;
+import com.wuling.xbloger.entity.vo.ArticleTitleVO;
+import com.wuling.xbloger.entity.vo.ArticleTypeVO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +16,7 @@ import java.util.List;
 @Getter
 public class ArticleListResponse {
 
-    private List<ArticleTypeVo> articleTypes;
-    private List<ArticleTitleVo> articleTitles;
+    private List<ArticleTypeVO> articleTypes;
+    private List<ArticleTitleVO> articleTitles;
 
 }

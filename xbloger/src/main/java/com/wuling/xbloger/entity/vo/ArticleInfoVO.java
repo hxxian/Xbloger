@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class ArticleInfoVo {
+public class ArticleInfoVO {
 
     private Long articleId;
     private Integer typeId;

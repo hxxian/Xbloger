@@ -10,25 +10,25 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class UploadFileVo {
+public class UploadFileVO {
 
     private boolean success;
     private String file_path;
 
-    public UploadFileVo() {
+    public UploadFileVO() {
     }
 
-    public UploadFileVo(boolean success, String file_path) {
+    public UploadFileVO(boolean success, String file_path) {
         this.success = success;
         this.file_path = file_path;
     }
 
 
-    public static UploadFileVo buildSuccess(String filePath) {
-        return new UploadFileVo(true, filePath);
+    public static UploadFileVO buildSuccess(String filePath) {
+        return new UploadFileVO(true, filePath);
     }
 
-    public static UploadFileVo buildFailure() {
-        return new UploadFileVo(false, "");
+    public static UploadFileVO buildFailure() {
+        return new UploadFileVO(false, "");
     }
 }

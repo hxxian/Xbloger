@@ -1,6 +1,6 @@
 package com.wuling.xbloger.controller.admin;
 
-import com.wuling.xbloger.entity.vo.UploadFileVo;
+import com.wuling.xbloger.entity.vo.UploadFileVO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +26,9 @@ public class FileController {
     private String imageUrl;
 
     @PostMapping("upload")
-    public UploadFileVo upload(@RequestParam("file") MultipartFile file) {
+    public UploadFileVO upload(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
-            return UploadFileVo.buildFailure();
+            return UploadFileVO.buildFailure();
         }
         String filename = file.getOriginalFilename();
         String suffix = filename.substring(filename.lastIndexOf("."));
@@ -42,11 +42,11 @@ public class FileController {
         try {
             file.transferTo(dest);
             String imagePath = imageUrl + newFileName;
-            return UploadFileVo.buildSuccess(imagePath);
+            return UploadFileVO.buildSuccess(imagePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return UploadFileVo.buildFailure();
+        return UploadFileVO.buildFailure();
     }
 
 }

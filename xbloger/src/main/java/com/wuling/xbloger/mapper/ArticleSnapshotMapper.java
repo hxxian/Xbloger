@@ -1,7 +1,7 @@
 package com.wuling.xbloger.mapper;
 
 import com.wuling.xbloger.entity.ArticleSnapshot;
-import com.wuling.xbloger.entity.bo.ArticleInfoBo;
+import com.wuling.xbloger.entity.bo.ArticleInfoBO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public interface ArticleSnapshotMapper {
             @Result(property = "readCount", column = "read_count"),
             @Result(property = "publishTime", column = "publish_time")
     })
-    ArticleInfoBo getArticleInfoBoByArticleId(Long articleId);
+    ArticleInfoBO getArticleInfoBoByArticleId(Long articleId);
 
     @Select("select * from article_snapshot where aid = #{articleId}")
     @Results(id = "snapshotMap", value = {
@@ -68,6 +68,16 @@ public interface ArticleSnapshotMapper {
     @ResultMap("snapshotMap")
     @Select("select id, aid, title, publish_time from article_snapshot order by read_count desc limit 7")
     List<ArticleSnapshot> listHotArticles();
+
+    /**
+     * 查询全部文章基本信息（id、title、publish_time、read_count）
+     * 用于归档数据处理
+     *
+     * @return
+     */
+    @ResultMap("snapshotMap")
+    @Select("select aid, title, publish_time, read_count from article_snapshot")
+    List<ArticleSnapshot> listAllArticleWithBasicInfo();
 
     @Insert("insert into article_snapshot(typeId, aid, title, digest, publish_time, gmt_create, gmt_update) " +
             "values(#{typeId}, #{articleId}, #{title}, #{digest}, #{publishTime}, #{gmtCreate}, #{gmtUpdate})")

@@ -1,13 +1,22 @@
 package com.wuling.xbloger.util;
 
-import com.wuling.xbloger.entity.Article;
 import com.wuling.xbloger.entity.ArticleSnapshot;
 import com.wuling.xbloger.entity.ArticleType;
-import com.wuling.xbloger.entity.bo.ArticleInfoBo;
+import com.wuling.xbloger.entity.bo.ArticleInfoBO;
 import com.wuling.xbloger.entity.bo.HomeArticleBO;
-import com.wuling.xbloger.entity.vo.ArticleInfoVo;
-import com.wuling.xbloger.entity.vo.ArticleTitleVo;
-import com.wuling.xbloger.entity.vo.ArticleTypeVo;
+import com.wuling.xbloger.entity.vo.ArchiveVO;
+import com.wuling.xbloger.entity.vo.ArticleInfoVO;
+import com.wuling.xbloger.entity.vo.ArticleTitleVO;
+import com.wuling.xbloger.entity.vo.ArticleTypeVO;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * @Author: wu_ling
@@ -16,8 +25,8 @@ import com.wuling.xbloger.entity.vo.ArticleTypeVo;
  */
 public class ObjectBuilder {
 
-    public static ArticleTypeVo buildArticleTypeVo(ArticleType articleType) {
-        ArticleTypeVo articleTypeVo = new ArticleTypeVo();
+    public static ArticleTypeVO buildArticleTypeVo(ArticleType articleType) {
+        ArticleTypeVO articleTypeVo = new ArticleTypeVO();
         if (articleType != null) {
             articleTypeVo.setTypeId(articleType.getTypeId());
             articleTypeVo.setTypeName(articleType.getTypeName());
@@ -25,8 +34,8 @@ public class ObjectBuilder {
         return articleTypeVo;
     }
 
-    public static ArticleTitleVo buildArticleTitleVo(ArticleSnapshot snapshot) {
-        ArticleTitleVo articleTitleVo = new ArticleTitleVo();
+    public static ArticleTitleVO buildArticleTitleVo(ArticleSnapshot snapshot) {
+        ArticleTitleVO articleTitleVo = new ArticleTitleVO();
         if (snapshot != null) {
             articleTitleVo.setArticleId(snapshot.getArticleId());
             articleTitleVo.setArticleTitle(snapshot.getTitle());
@@ -48,8 +57,8 @@ public class ObjectBuilder {
         return articleBO;
     }
 
-    public static ArticleInfoVo buildArticleInfoVo(ArticleInfoBo article) {
-        ArticleInfoVo articleInfoVo = new ArticleInfoVo();
+    public static ArticleInfoVO buildArticleInfoVo(ArticleInfoBO article) {
+        ArticleInfoVO articleInfoVo = new ArticleInfoVO();
         if (article != null) {
             articleInfoVo.setPublishTimestamp(article.getPublishTimestamp());
             articleInfoVo.setArticleId(article.getArticleId());
@@ -60,5 +69,24 @@ public class ObjectBuilder {
             articleInfoVo.setReadCount(article.getReadCount());
         }
         return articleInfoVo;
+    }
+
+    public static List<ArchiveVO> buildArchiveVo(Map<Long, List<ArticleTitleVO>> map) {
+        if (map == null || map.isEmpty()) {
+            return Collections.emptyList();
+        }
+        List<ArchiveVO> archiveVOs = new ArrayList<>(map.size());
+        for (Map.Entry<Long, List<ArticleTitleVO>> entry : map.entrySet()) {
+            ArchiveVO archiveVO = new ArchiveVO();
+            archiveVO.setArticleTitles(entry.getValue());
+
+            LocalDateTime localDateTime = LocalDateTime
+                    .ofEpochSecond(entry.getKey(), 0, ZoneOffset.of("+8"));
+            String dateGroup = localDateTime.getYear() + "-" + localDateTime.getMonthValue();
+            archiveVO.setDateGroup(dateGroup);
+
+            archiveVOs.add(archiveVO);
+        }
+        return archiveVOs;
     }
 }
