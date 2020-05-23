@@ -161,6 +161,11 @@ public class ArticleServiceImpl implements ArticleService {
         siteSnapshotMapper.updateCommentCount(KeyIdConstant.SITE_SNAPSHOT_ID, 1);
     }
 
+    @Override
+    public void updateArticleShowState(Long articleId, Integer showState) {
+        articleSnapshotMapper.updateArticleShowState(articleId, String.valueOf(showState));
+    }
+
 
     private Article genArticle(Integer typeId, String title, String content, String digest) {
         Article article = new Article();

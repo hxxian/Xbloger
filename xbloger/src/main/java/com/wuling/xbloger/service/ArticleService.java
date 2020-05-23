@@ -114,4 +114,12 @@ public interface ArticleService {
      * @param articleId
      */
     void increaseCommentCount(Long articleId);
+
+    /**
+     * 更新文章的显示状态
+     *
+     * @param articleId
+     * @param showState
+     */
+    void updateArticleShowState(Long articleId, Integer showState);
 }

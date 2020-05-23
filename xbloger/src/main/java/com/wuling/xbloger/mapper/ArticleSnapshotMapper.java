@@ -91,4 +91,7 @@ public interface ArticleSnapshotMapper {
 
     @Update("update article_snapshot set comment_count = comment_count + #{increment} where aid = #{articleId}")
     void updateArticleCommentCount(Long articleId, Integer increment);
+
+    @Update("update article_snapshot set show_state = #{showState} where aid = #{articleId}")
+    void updateArticleShowState(Long articleId, String showState);
 }

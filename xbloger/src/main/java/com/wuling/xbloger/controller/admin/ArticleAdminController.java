@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.ws.Response;
 import java.util.List;
 
 /**
@@ -52,6 +53,12 @@ public class ArticleAdminController {
         articleService.addArticle(req.getTypeId(), req.getTitle(), req.getContent(), req.getDigest());
 
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
+    }
+
+    @PostMapping("show")
+    public ResponseEntity<Void> updateArticleShowState(Long articleId, Integer showState) {
+        articleService.updateArticleShowState(articleId, showState);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
     @GetMapping("page/{page}")
