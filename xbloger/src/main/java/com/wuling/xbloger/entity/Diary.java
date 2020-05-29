@@ -19,8 +19,9 @@ import java.util.Date;
 @TableName("diary")
 public class Diary {
 
-    @TableId(value = "did", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long did;
+    @TableField("content")
     private String content;
 
     @TableField("gmt_create")

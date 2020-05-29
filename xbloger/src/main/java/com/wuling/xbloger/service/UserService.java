@@ -19,8 +19,7 @@ public interface UserService {
     /**
      * 注销登录
      *
-     * @return
      */
-    Boolean logout();
+    void logout();
 
 }

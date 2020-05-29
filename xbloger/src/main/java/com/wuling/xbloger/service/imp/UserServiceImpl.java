@@ -1,6 +1,7 @@
 package com.wuling.xbloger.service.imp;
 
 import com.wuling.xbloger.entity.User;
+import com.wuling.xbloger.manager.TokenManager;
 import com.wuling.xbloger.mapper.UserMapper;
 import com.wuling.xbloger.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,11 @@ public class UserServiceImpl implements UserService {
             // return invalid token
             return "";
         }
-        // TODO
-        return null;
+        return TokenManager.getInstance().getToken();
     }
 
     @Override
-    public Boolean logout() {
-        return null;
+    public void logout() {
+        TokenManager.getInstance().clearTokens();
     }
 }
