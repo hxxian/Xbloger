@@ -2,12 +2,10 @@ package com.wuling.xbloger.util;
 
 import com.wuling.xbloger.entity.ArticleSnapshot;
 import com.wuling.xbloger.entity.ArticleType;
+import com.wuling.xbloger.entity.SiteSnapshot;
 import com.wuling.xbloger.entity.bo.ArticleInfoBO;
 import com.wuling.xbloger.entity.bo.HomeArticleBO;
-import com.wuling.xbloger.entity.vo.ArchiveVO;
-import com.wuling.xbloger.entity.vo.ArticleInfoVO;
-import com.wuling.xbloger.entity.vo.ArticleTitleVO;
-import com.wuling.xbloger.entity.vo.ArticleTypeVO;
+import com.wuling.xbloger.entity.vo.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -88,5 +86,16 @@ public class ObjectBuilder {
             archiveVOs.add(archiveVO);
         }
         return archiveVOs;
+    }
+
+    public static SiteSnapshotVO buildSiteSnapshotVO(SiteSnapshot site) {
+        SiteSnapshotVO vo = new SiteSnapshotVO();
+        if (site != null) {
+            vo.setAccessCount(site.getAccessCount());
+            vo.setArticleCount(site.getArticleCount());
+            vo.setCommentCount(site.getCommentCount());
+            vo.setFoundingDays(DateUtil.getDayPeriodForNow(site.getFoundingTime()));
+        }
+        return vo;
     }
 }

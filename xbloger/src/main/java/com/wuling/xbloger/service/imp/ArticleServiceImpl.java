@@ -50,7 +50,7 @@ public class ArticleServiceImpl implements ArticleService {
             ArticleSnapshot snapshot = genArticleSnapshot(article);
             articleSnapshotMapper.addArticleSnap(snapshot);
 
-            siteSnapshotMapper.updateAccessCount(KeyIdConstant.SITE_SNAPSHOT_ID, 1);
+            siteSnapshotMapper.updateArticleCount(KeyIdConstant.SITE_SNAPSHOT_ID, 1);
             return true;
         } catch (Exception e) {
             log.error("添加文章异常， e： ", e);

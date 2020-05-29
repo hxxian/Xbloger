@@ -19,4 +19,5 @@ public interface SiteSnapshotMapper extends BaseMapper<SiteSnapshot> {
 
     @Update("update site_snapshot set article_count = article_count + #{increment} where id = #{siteId}")
     void updateArticleCount(Integer siteId, Integer increment);
+
 }
