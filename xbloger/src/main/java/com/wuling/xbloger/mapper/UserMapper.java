@@ -1,6 +1,8 @@
 package com.wuling.xbloger.mapper;
 
 import com.wuling.xbloger.entity.User;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
 /**
@@ -10,7 +12,10 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface UserMapper {
 
-    @Select("select id, username, password from user where username = #{username}")
+    @Select("select user_id, username, password from user where username = #{username}")
+    @Results({
+            @Result(property = "userId", column = "user_id")
+    })
     User getUserByUserName(String username);
 
 }

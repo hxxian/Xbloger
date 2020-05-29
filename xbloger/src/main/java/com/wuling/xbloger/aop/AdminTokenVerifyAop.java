@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class AdminTokenVerifyAop {
 
-    @Pointcut("execution(* com.wuling.xbloger.controller.admin.*.*(..))")
+    @Pointcut("execution(* com.wuling.xbloger.controller.admin.*.*(..)) && !execution(* com.wuling.xbloger.controller.admin.UserController.*(..))")
     public void cutController() {}
 
     @Before("cutController()")

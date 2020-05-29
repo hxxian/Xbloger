@@ -1,0 +1,34 @@
+package com.wuling.xbloger.controller.admin;
+
+import com.wuling.xbloger.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * @Author: wu_ling
+ * @Date: 2020/5/29
+ * @Desc: 管理员用户操作
+ */
+@RestController
+@RequestMapping("admin/user")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("login")
+    public ResponseEntity<String> login(String username, String password) {
+        String token = userService.login(username, password);
+        if (StringUtils.isEmpty(token)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok(token);
+    }
+
+}
