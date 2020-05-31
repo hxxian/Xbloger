@@ -21,7 +21,8 @@ public class SiteServiceImpl implements SiteService {
     public SiteSnapshot getSiteSnapshot(Integer siteId) {
         SiteSnapshot snapshot = new SiteSnapshot();
         snapshot.setSiteId(siteId);
-        return siteSnapshotMapper.selectOne(snapshot);
+        return null;
+//        return siteSnapshotMapper.selectOne(snapshot);
     }
 
 }

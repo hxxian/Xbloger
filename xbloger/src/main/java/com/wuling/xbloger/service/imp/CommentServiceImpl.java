@@ -24,6 +24,6 @@ public class CommentServiceImpl implements CommentService {
         if (comment != null) {
             comment.setGmtCreate(new Date());
         }
-        commentMapper.insert(comment);
+//        commentMapper.insert(comment);
     }
 }

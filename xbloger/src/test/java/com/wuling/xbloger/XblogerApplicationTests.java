@@ -25,7 +25,6 @@ class XblogerApplicationTests {
 
     @Test
     void contextLoads() {
-        ArticleInfoBO bo = articleSnapshotMapper.getArticleInfoBoByArticleId(3L);
         System.out.println();
     }
 

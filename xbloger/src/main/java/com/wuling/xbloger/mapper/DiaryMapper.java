@@ -1,6 +1,5 @@
 package com.wuling.xbloger.mapper;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.wuling.xbloger.entity.Diary;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Result;
@@ -14,7 +13,7 @@ import java.util.List;
  * @Date: 2020/5/15
  * @Desc: TODO
  */
-public interface DiaryMapper extends BaseMapper<Diary> {
+public interface DiaryMapper {
 
     @Insert("insert into diary(content, gmt_create, gmt_update) values(#{content}, #{gmtCreate}, #{gmtUpdate})")
     void insertDiary(Diary diary);
