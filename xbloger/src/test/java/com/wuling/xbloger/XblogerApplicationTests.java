@@ -1,8 +1,10 @@
 package com.wuling.xbloger;
 
+import com.wuling.xbloger.entity.Diary;
 import com.wuling.xbloger.entity.bo.ArticleInfoBO;
 import com.wuling.xbloger.mapper.ArticleMapper;
 import com.wuling.xbloger.mapper.ArticleSnapshotMapper;
+import com.wuling.xbloger.mapper.DiaryMapper;
 import com.wuling.xbloger.service.ArticleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ class XblogerApplicationTests {
     private ArticleSnapshotMapper articleSnapshotMapper;
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private DiaryMapper diaryMapper;
 
 
     @Test
@@ -32,10 +36,6 @@ class XblogerApplicationTests {
         String content = "test content";
         String digest = "test digest";
         articleService.addArticle(typeId, title, content, digest);
-    }
-
-    @Test
-    void testArticleController() {
     }
 
 }
