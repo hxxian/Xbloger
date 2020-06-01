@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Desc:
  */
 @RestController
-@RequestMapping("site/snapshot")
+@RequestMapping("admin/site/snapshot")
 public class SiteController {
 
     @Autowired

@@ -19,10 +19,7 @@ public class SiteServiceImpl implements SiteService {
 
     @Override
     public SiteSnapshot getSiteSnapshot(Integer siteId) {
-        SiteSnapshot snapshot = new SiteSnapshot();
-        snapshot.setSiteId(siteId);
-        return null;
-//        return siteSnapshotMapper.selectOne(snapshot);
+        return siteSnapshotMapper.getSiteSnapshot(siteId);
     }
 
 }

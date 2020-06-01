@@ -1,11 +1,11 @@
 package com.wuling.xbloger.controller.admin;
 
+import com.wuling.xbloger.entity.vo.TokenVO;
 import com.wuling.xbloger.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,12 +23,14 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("login")
-    public ResponseEntity<String> login(String username, String password) {
+    public ResponseEntity<TokenVO> login(String username, String password) {
         String token = userService.login(username, password);
         if (StringUtils.isEmpty(token)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        return ResponseEntity.ok(token);
+        TokenVO vo = new TokenVO();
+        vo.setToken(token);
+        return ResponseEntity.ok(vo);
     }
 
 }

@@ -1,5 +1,7 @@
 package com.wuling.xbloger.mapper;
 
+import com.wuling.xbloger.entity.SiteSnapshot;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 /**
@@ -17,5 +19,8 @@ public interface SiteSnapshotMapper {
 
     @Update("update site_snapshot set article_count = article_count + #{increment} where id = #{siteId}")
     void updateArticleCount(Integer siteId, Integer increment);
+
+    @Select("select * from site_snapshot where id = #{siteId}")
+    SiteSnapshot getSiteSnapshot(Integer siteId);
 
 }

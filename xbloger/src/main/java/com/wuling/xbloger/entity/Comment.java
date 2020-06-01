@@ -18,6 +18,8 @@ public class Comment {
     private Long commentId;
     // 文章ID，若不是针对文章的评论（针对博主的评论）则为0
     private Long articleId;
+    // 回复的评论ID
+    private Long replyCommentId;
     // 头像Url
     private String avatarUrl;
     // 昵称
@@ -34,4 +36,6 @@ public class Comment {
     private Integer showState;
     // 评论时间
     private Date gmtCreate;
+
+    private Date gmtUpdate;
 }
