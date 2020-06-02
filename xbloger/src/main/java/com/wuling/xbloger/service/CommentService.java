@@ -1,6 +1,9 @@
 package com.wuling.xbloger.service;
 
 import com.wuling.xbloger.entity.Comment;
+import com.wuling.xbloger.entity.bo.LatestCommentBO;
+
+import java.util.List;
 
 /**
  * @Author: wu_ling
@@ -15,5 +18,12 @@ public interface CommentService {
      * @param comment
      */
     void saveComment(Comment comment);
+
+    /**
+     * 查询最新10条评论
+     *
+     * @return
+     */
+    List<LatestCommentBO> listLatest10Comment();
 
 }

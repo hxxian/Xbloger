@@ -1,9 +1,11 @@
 package com.wuling.xbloger.entity;
 
+import com.wuling.xbloger.entity.bo.LatestCommentBO;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author: xian

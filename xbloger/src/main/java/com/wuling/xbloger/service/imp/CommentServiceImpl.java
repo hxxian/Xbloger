@@ -1,12 +1,17 @@
 package com.wuling.xbloger.service.imp;
 
 import com.wuling.xbloger.entity.Comment;
+import com.wuling.xbloger.entity.bo.LatestCommentBO;
 import com.wuling.xbloger.mapper.CommentMapper;
 import com.wuling.xbloger.service.CommentService;
+import com.wuling.xbloger.util.ObjectBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author: wu_ling
@@ -26,5 +31,18 @@ public class CommentServiceImpl implements CommentService {
             comment.setGmtCreate(new Date());
         }
         commentMapper.insertComment(comment);
+    }
+
+    @Override
+    public List<LatestCommentBO> listLatest10Comment() {
+        List<Comment> comments = commentMapper.listLatest10Comment();
+        if (comments != null && !comments.isEmpty()) {
+            List<LatestCommentBO> bos = new ArrayList<>(comments.size());
+            for (Comment c : comments) {
+                bos.add(ObjectBuilder.buildLatestCommentBO(c));
+            }
+            return bos;
+        }
+        return Collections.emptyList();
     }
 }

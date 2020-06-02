@@ -1,7 +1,10 @@
 package com.wuling.xbloger.entity.vo;
 
+import com.wuling.xbloger.entity.bo.LatestCommentBO;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 /**
  * @Author: wu_ling
@@ -17,5 +20,7 @@ public class SiteSnapshotVO {
     private Integer accessCount;
     // 成立天数
     private Integer foundingDays;
+
+    List<LatestCommentBO> latestComments;
 
 }

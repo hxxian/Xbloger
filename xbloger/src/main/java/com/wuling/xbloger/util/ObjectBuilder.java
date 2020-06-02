@@ -2,9 +2,11 @@ package com.wuling.xbloger.util;
 
 import com.wuling.xbloger.entity.ArticleSnapshot;
 import com.wuling.xbloger.entity.ArticleType;
+import com.wuling.xbloger.entity.Comment;
 import com.wuling.xbloger.entity.SiteSnapshot;
 import com.wuling.xbloger.entity.bo.ArticleInfoBO;
 import com.wuling.xbloger.entity.bo.HomeArticleBO;
+import com.wuling.xbloger.entity.bo.LatestCommentBO;
 import com.wuling.xbloger.entity.vo.*;
 
 import java.time.LocalDateTime;
@@ -97,5 +99,15 @@ public class ObjectBuilder {
             vo.setFoundingDays(DateUtil.getDayPeriodForNow(site.getFoundingTime()));
         }
         return vo;
+    }
+
+    public static LatestCommentBO buildLatestCommentBO(Comment comment) {
+        LatestCommentBO bo = new LatestCommentBO();
+        if (comment != null) {
+            bo.setCommentId(comment.getCommentId());
+            bo.setContent(comment.getContent());
+            bo.setCommentTime(comment.getGmtCreate().getTime());
+        }
+        return bo;
     }
 }
