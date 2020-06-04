@@ -23,7 +23,7 @@ public class ArticleTypeServiceImpl implements ArticleTypeService {
     @Override
     public void addArticleType(String typeName) {
         ArticleType articleType = buildArticleType(typeName);
-        articleTypeMapper.addArticleType(articleType);
+        articleTypeMapper.insertArticleType(articleType);
     }
 
     @Override

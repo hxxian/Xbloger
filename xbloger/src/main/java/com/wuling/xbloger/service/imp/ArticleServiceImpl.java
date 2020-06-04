@@ -48,7 +48,7 @@ public class ArticleServiceImpl implements ArticleService {
             articleMapper.insertArticle(article);
 
             ArticleSnapshot snapshot = genArticleSnapshot(article);
-            articleSnapshotMapper.addArticleSnap(snapshot);
+            articleSnapshotMapper.insertArticleSnap(snapshot);
 
             siteSnapshotMapper.updateArticleCount(KeyIdConstant.SITE_SNAPSHOT_ID, 1);
             return true;

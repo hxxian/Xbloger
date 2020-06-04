@@ -17,6 +17,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+
+    /**
+     * 捕获通用异常
+     *
+     * @param e
+     * @return
+     */
+    @ResponseBody
+    @ExceptionHandler(value = Exception.class)
+    public ResponseEntity<Void> commonExceptionHandle(Exception e) {
+        log.error("<<Global Common Exception>>, e: [{}]", e);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+
+    /**
+     * 捕获未授权异常
+     *
+     * @param e
+     * @return
+     */
     @ResponseBody
     @ExceptionHandler(value = AuthException.class)
     public ResponseEntity<Void> authExceptionHandle(AuthException e) {

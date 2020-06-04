@@ -16,7 +16,7 @@ import java.util.List;
 public interface ArticleTypeMapper {
 
     @Insert("insert into article_type(type_name, gmt_create, gmt_update) values(#{typeName}, #{gmtCreate}, #{gmtUpdate})")
-    void addArticleType(ArticleType articleType);
+    void insertArticleType(ArticleType articleType);
 
     @Select("select id, type_name, gmt_create from article_type")
     @Results({

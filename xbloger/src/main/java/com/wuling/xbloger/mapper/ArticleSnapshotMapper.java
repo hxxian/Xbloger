@@ -81,7 +81,7 @@ public interface ArticleSnapshotMapper {
 
     @Insert("insert into article_snapshot(typeId, aid, title, digest, publish_time, gmt_create, gmt_update) " +
             "values(#{typeId}, #{articleId}, #{title}, #{digest}, #{publishTime}, #{gmtCreate}, #{gmtUpdate})")
-    void addArticleSnap(ArticleSnapshot snapshot);
+    void insertArticleSnap(ArticleSnapshot snapshot);
 
     @Update("update article_snapshot set type_id = #{typeId}, title = #{title}, digest = #{digest}, gmt_update = #{gmtUpdate} where aid = #{articleId}")
     void updateArticleSnap(ArticleSnapshot snapshot);
