@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @Author: wu_ling
  * @Date: 2020/5/15
- * @Desc: TODO
+ * @Desc: 日记、说说
  */
 public interface DiaryMapper {
 

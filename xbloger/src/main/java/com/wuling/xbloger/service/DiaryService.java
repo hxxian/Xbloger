@@ -10,6 +10,13 @@ import com.wuling.xbloger.entity.Diary;
 public interface DiaryService {
 
     /**
+     * 新增说说
+     *
+     * @param content
+     */
+    void saveDiary(String content);
+
+    /**
      * 获取最新的说说
      *
      * @return

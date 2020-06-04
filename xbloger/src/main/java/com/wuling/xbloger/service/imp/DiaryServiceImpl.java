@@ -6,6 +6,7 @@ import com.wuling.xbloger.service.DiaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +19,16 @@ public class DiaryServiceImpl implements DiaryService {
 
     @Autowired
     private DiaryMapper diaryMapper;
+
+    @Override
+    public void saveDiary(String content) {
+        Diary diary = new Diary();
+        diary.setContent(content);
+        diary.setGmtCreate(new Date());
+        diary.setGmtUpdate(new Date());
+
+        diaryMapper.insertDiary(diary);
+    }
 
     @Override
     public Diary getLatestDiary() {
