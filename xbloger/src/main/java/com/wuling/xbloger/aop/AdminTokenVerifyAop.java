@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletRequest;
  * @Date: 2020/5/29
  * @Desc: 管理后台相关接口token校验
  */
-//@Aspect
-//@Component
+@Aspect
+@Component
 @Slf4j
 public class AdminTokenVerifyAop {
 

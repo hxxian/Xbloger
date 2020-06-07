@@ -79,7 +79,7 @@ public interface ArticleSnapshotMapper extends BaseMapper<ArticleSnapshot> {
     @Select("select aid, title, publish_time, read_count from article_snapshot")
     List<ArticleSnapshot> listAllArticleWithBasicInfo();
 
-    @Insert("insert into article_snapshot(typeId, aid, title, digest, publish_time, gmt_create, gmt_update) " +
+    @Insert("insert into article_snapshot(type_id, aid, title, digest, publish_time, gmt_create, gmt_update) " +
             "values(#{typeId}, #{articleId}, #{title}, #{digest}, #{publishTime}, #{gmtCreate}, #{gmtUpdate})")
     @Override
     void insert(ArticleSnapshot snapshot);

@@ -54,7 +54,7 @@ public class ArticleAdminController {
         if (res) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
         }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
     @GetMapping("type")
@@ -70,17 +70,17 @@ public class ArticleAdminController {
         return ResponseEntity.ok(Collections.emptyList());
     }
 
+    @PostMapping("update")
+    @OperateRecord("更新文章")
+    public ResponseEntity<Void> updateArticle(AddArticleReq req) {
+        articleService.updateArticle(req.getArticleId(), req.getTypeId(), req.getTitle(), req.getContent(), req.getDigest());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
     @PostMapping()
-    public ResponseEntity<Void> addOrUpdateArticle(AddArticleReq req) {
-        if (req.getArticleId() != null && req.getArticleId() > 0) {
-            // 更新
-            articleService.updateArticle(req.getArticleId(), req.getTypeId(), req.getTitle(), req.getContent(), req.getDigest());
-
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
-        }
-
+    @OperateRecord("新增文章")
+    public ResponseEntity<Void> addArticle(AddArticleReq req) {
         articleService.addArticle(req.getTypeId(), req.getTitle(), req.getContent(), req.getDigest());
-
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
