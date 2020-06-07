@@ -1,5 +1,6 @@
 package com.wuling.xbloger.controller.admin;
 
+import com.wuling.xbloger.annotation.OperateRecord;
 import com.wuling.xbloger.entity.vo.TokenVO;
 import com.wuling.xbloger.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("login")
+    @OperateRecord("登录")
     public ResponseEntity<TokenVO> login(String username, String password) {
         String token = userService.login(username, password);
         if (StringUtils.isEmpty(token)) {

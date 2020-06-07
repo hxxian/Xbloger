@@ -7,18 +7,16 @@ import java.lang.annotation.Target;
 
 /**
  * @Author: wu_ling
- * @Date: 2020/6/4
- * @Desc: 记录更新操作的表名
+ * @Date: 2020/6/7
+ * @Desc: 管理员操作记录
  */
-@Target(ElementType.TYPE)
+@Target(ElementType.METHOD)
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface ModifyRecord {
+public @interface OperateRecord {
 
     /**
-     * 表名
-     *
+     * 操作描述
      * @return
      */
-    String value() default "";
-
+    String value() default  "";
 }

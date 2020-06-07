@@ -18,19 +18,19 @@ import java.util.Date;
  * @Date: 2020/6/4
  * @Desc: 数据更新记录aop处理
  */
-@Aspect
-@Component
+//@Aspect
+//@Component
 @Slf4j
 public class ModifyRecordAop {
 
     /**
      * 仅仅拦截update方法，参数固定，即BaseDao里的update(Entity entity, Long entityId)
      */
-    @Pointcut("execution(* com.wuling.xbloger.manager..*.update(..))")
+//    @Pointcut("execution(* com.wuling.xbloger.manager..*.update(..))")
     public void cutDataModify() {
     }
 
-    @Around("cutDataModify()")
+//    @Around("cutDataModify()")
     public void recordCheck(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         log.info("recordCheck staring...");
         Object[] args = proceedingJoinPoint.getArgs();
