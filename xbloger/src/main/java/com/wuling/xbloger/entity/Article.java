@@ -13,10 +13,10 @@ import java.util.Date;
  */
 @Setter
 @Getter
-public class Article {
+public class Article extends Entity {
 
     private Long articleId;
-    private Integer typeId;
+    private Long typeId;
     private String title;
     private String content;
     private String digest;

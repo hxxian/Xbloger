@@ -63,7 +63,7 @@ public class ArticleController {
      * @return
      */
     @GetMapping("page/{page}")
-    public ResponseEntity<List<ArticleTitleVO>> listArticleByPage(Integer typeId, @PathVariable Integer page) {
+    public ResponseEntity<List<ArticleTitleVO>> listArticleByPage(Long typeId, @PathVariable Integer page) {
         List<ArticleSnapshot> snapshots = articleService.listShowArticleSnap(typeId, page);
         if (snapshots != null && !snapshots.isEmpty()) {
             List<ArticleTitleVO> titleVos = new ArrayList<>(snapshots.size());

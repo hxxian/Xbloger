@@ -17,7 +17,7 @@ import java.util.Date;
 public class ArticleInfoBO {
 
     private Long articleId;
-    private Integer typeId;
+    private Long typeId;
     private String typeName;
     private String title;
     private String content;

@@ -1,5 +1,6 @@
 package com.wuling.xbloger.controller.admin;
 
+import com.wuling.xbloger.annotation.OperateRecord;
 import com.wuling.xbloger.service.DiaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ public class DiaryController {
     private DiaryService diaryService;
 
     @PostMapping
+    @OperateRecord("发表说说")
     public ResponseEntity<Void> saveDiary(String content) {
         if (StringUtils.isEmpty(content)) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);

@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Setter
 @Getter
-public class Comment {
+public class Comment extends Entity {
 
     // 评论ID
     private Long commentId;

@@ -41,14 +41,14 @@ public class ArticleServiceImpl implements ArticleService {
     private SiteSnapshotMapper siteSnapshotMapper;
 
     @Override
-    public Boolean addArticle(Integer typeId, String title, String content, String digest) {
+    public Boolean addArticle(Long typeId, String title, String content, String digest) {
         try {
             Article article = genArticle(typeId, title, content, digest);
             // 执行 插入成功后，mybatis会返回当前记录的主键ID，并赋值给当前对象
-            articleMapper.insertArticle(article);
+            articleMapper.insert(article);
 
             ArticleSnapshot snapshot = genArticleSnapshot(article);
-            articleSnapshotMapper.insertArticleSnap(snapshot);
+            articleSnapshotMapper.insert(snapshot);
 
             siteSnapshotMapper.updateArticleCount(KeyIdConstant.SITE_SNAPSHOT_ID, 1);
             return true;
@@ -60,7 +60,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void updateArticle(Long articleId, Integer typeId, String title, String content, String digest) {
+    public void updateArticle(Long articleId, Long typeId, String title, String content, String digest) {
         Article article = genArticle(typeId, title, content, digest);
         article.setArticleId(articleId);
         articleMapper.updateArticle(article);
@@ -120,7 +120,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleSnapshot> listShowArticleSnap(Integer typeId, Integer page) {
+    public List<ArticleSnapshot> listShowArticleSnap(Long typeId, Integer page) {
         if (page <= 0) {
             page = 1;
         }
@@ -167,7 +167,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
 
-    private Article genArticle(Integer typeId, String title, String content, String digest) {
+    private Article genArticle(Long typeId, String title, String content, String digest) {
         Article article = new Article();
         article.setTypeId(typeId);
         article.setTitle(title);

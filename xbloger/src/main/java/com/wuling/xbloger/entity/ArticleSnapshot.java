@@ -12,12 +12,12 @@ import java.util.Date;
  */
 @Setter
 @Getter
-public class ArticleSnapshot {
+public class ArticleSnapshot extends Entity {
 
     private Long sid;
     private Long articleId;
 
-    private Integer typeId;
+    private Long typeId;
     // 文章标题
     private String title;
     // 文章摘要

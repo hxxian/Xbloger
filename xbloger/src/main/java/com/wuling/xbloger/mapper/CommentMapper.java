@@ -10,12 +10,13 @@ import java.util.List;
  * @Date: 2020/5/28
  * @Desc: 评论
  */
-public interface CommentMapper {
+public interface CommentMapper extends BaseMapper<Comment> {
 
     @Insert("insert into comment(aid, reply_id, avatar_url, nickname, email, website, ip_addr, content, gmt_create, gmt_update) " +
             "values(#{articleId}, #{replyCommentId}, #{avatarUrl}, #{nickname}, #{email}, #{website}, #{ipAddr}, #{content}, " +
             "#{gmtCreate}, #{gmtUpdate})")
-    void insertComment(Comment comment);
+    @Override
+    void insert(Comment comment);
 
 
     @Select("select * from comment where id >= (select id from comment order by id asc limit #{offset}, 1) order by id asc limit #{limit}")

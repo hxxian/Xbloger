@@ -13,7 +13,7 @@ import lombok.Setter;
 public class ArticleInfoVO {
 
     private Long articleId;
-    private Integer typeId;
+    private Long typeId;
     private String title;
     private String content;
     private String typeName;

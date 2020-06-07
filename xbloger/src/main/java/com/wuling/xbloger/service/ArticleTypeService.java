@@ -26,4 +26,19 @@ public interface ArticleTypeService {
      */
     List<ArticleType> listArticleType();
 
+    /**
+     * 更新文章类别名
+     *
+     * @param typeId
+     * @param typeName
+     */
+    void updateTypeName(Long typeId, String typeName);
+
+    /**
+     * 删除文章类别
+     * 注：如果有文章关联着该分类，则不允许删除
+     *
+     * @param typeId
+     */
+    boolean deleteType(Long typeId);
 }

@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class Avatar {
+public class Avatar extends Entity {
 
     private Integer aid;
     private String avatarUrl;

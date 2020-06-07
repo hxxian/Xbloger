@@ -30,7 +30,7 @@ class XblogerApplicationTests {
 
     @Test
     void testInsertArticle() {
-        int typeId = 1;
+        long typeId = 1;
         String title = "test title";
         String content = "test content";
         String digest = "test digest";

@@ -12,8 +12,20 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RecordColumn {
+public @interface ModifyRecordColumn {
 
+    /**
+     * 列名
+     *
+     * @return
+     */
     String value() default  "";
+
+    /**
+     * 更新描述
+     *
+     * @return
+     */
+    String desc() default "";
 
 }

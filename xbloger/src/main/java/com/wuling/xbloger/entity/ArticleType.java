@@ -12,9 +12,9 @@ import java.util.Date;
  */
 @Setter
 @Getter
-public class ArticleType {
+public class ArticleType extends Entity {
 
-    private Integer typeId;
+    private Long typeId;
     private String typeName;
 
     private Date gmtCreate;

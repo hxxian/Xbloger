@@ -26,7 +26,7 @@ public interface ArticleService {
      * @param digest 摘要
      * @return
      */
-    Boolean addArticle(Integer typeId, String title, String content, String digest);
+    Boolean addArticle(Long typeId, String title, String content, String digest);
 
     /**
      *  更新文章
@@ -37,7 +37,7 @@ public interface ArticleService {
      * @param content
      * @param digest
      */
-    void updateArticle(Long articleId, Integer typeId, String title, String content, String digest);
+    void updateArticle(Long articleId, Long typeId, String title, String content, String digest);
 
     /**
      * 根据文章ID返回文章详情信息
@@ -78,7 +78,7 @@ public interface ArticleService {
      * @param page
      * @return
      */
-    List<ArticleSnapshot> listShowArticleSnap(Integer typeId, Integer page);
+    List<ArticleSnapshot> listShowArticleSnap(Long typeId, Integer page);
 
     /**
      * 获取最热文章

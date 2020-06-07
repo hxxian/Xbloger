@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 public class AddArticleReq {
 
-    private Integer typeId;
+    private Long typeId;
     private Long articleId;
     private String title;
     private String digest;

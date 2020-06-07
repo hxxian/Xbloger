@@ -35,4 +35,16 @@ public class UserController {
         return ResponseEntity.ok(vo);
     }
 
+    /**
+     * 注销登录
+     *
+     * @return
+     */
+    @PostMapping("logout")
+    @OperateRecord("注销")
+    public ResponseEntity<Void> logout() {
+        // TODO
+        return null;
+    }
+
 }

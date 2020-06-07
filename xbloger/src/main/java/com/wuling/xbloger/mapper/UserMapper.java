@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Select;
  * @Date: 2020/5/13
  * @Desc:
  */
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<User> {
 
     @Select("select user_id, username, password from user where username = #{username}")
     @Results({

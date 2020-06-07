@@ -1,7 +1,5 @@
 package com.wuling.xbloger.mapper;
 
-import com.wuling.xbloger.entity.Entity;
-
 /**
  * @Author: wu_ling
  * @Date: 2020/6/7
@@ -9,6 +7,9 @@ import com.wuling.xbloger.entity.Entity;
  */
 public interface BaseMapper<T> {
 
+    T getById(Long id);
+
     void insert(T entity);
 
+    void delete(Long id);
 }

@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class User {
+public class User extends Entity {
 
     private Long userId;
     private String username;

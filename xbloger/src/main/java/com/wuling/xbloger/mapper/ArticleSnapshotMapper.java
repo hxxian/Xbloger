@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
-public interface ArticleSnapshotMapper {
+public interface ArticleSnapshotMapper extends BaseMapper<ArticleSnapshot> {
 
     @Select("select a.id, a.type_id, a.title, a.content, t.type_name, s.read_count, s.publish_time from article_info a, " +
             "article_type t, article_snapshot s where a.id = #{articleId} and a.id = s.aid and a.type_id = t.id")
@@ -45,7 +45,7 @@ public interface ArticleSnapshotMapper {
             "(select id from article_snapshot where type_id = #{typeId} and show_state = 1 order by id limit #{offset}, 1) " +
             "and type_id = #{typeId} and show_state = 1 order by id limit #{pageSize}")
     @ResultMap("snapshotMap")
-    List<ArticleSnapshot> listShowArticleSnapByTypeId(Integer typeId, Integer offset, Integer pageSize);
+    List<ArticleSnapshot> listShowArticleSnapByTypeId(Long typeId, Integer offset, Integer pageSize);
 
     /**
      * 查询最新文章
@@ -81,7 +81,8 @@ public interface ArticleSnapshotMapper {
 
     @Insert("insert into article_snapshot(typeId, aid, title, digest, publish_time, gmt_create, gmt_update) " +
             "values(#{typeId}, #{articleId}, #{title}, #{digest}, #{publishTime}, #{gmtCreate}, #{gmtUpdate})")
-    void insertArticleSnap(ArticleSnapshot snapshot);
+    @Override
+    void insert(ArticleSnapshot snapshot);
 
     @Update("update article_snapshot set type_id = #{typeId}, title = #{title}, digest = #{digest}, gmt_update = #{gmtUpdate} where aid = #{articleId}")
     void updateArticleSnap(ArticleSnapshot snapshot);

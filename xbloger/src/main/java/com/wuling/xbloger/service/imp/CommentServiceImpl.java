@@ -30,7 +30,7 @@ public class CommentServiceImpl implements CommentService {
             comment.setGmtCreate(new Date());
             comment.setGmtCreate(new Date());
         }
-        commentMapper.insertComment(comment);
+        commentMapper.insert(comment);
     }
 
     @Override

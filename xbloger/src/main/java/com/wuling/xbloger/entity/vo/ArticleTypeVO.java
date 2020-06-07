@@ -12,7 +12,8 @@ import lombok.Setter;
 @Setter
 public class ArticleTypeVO {
 
-    private Integer typeId;
+    private Long typeId;
     private String typeName;
+    private Long gmtCreate;
 
 }

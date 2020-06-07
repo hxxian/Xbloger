@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @Setter
 @Getter
-public class Diary {
+public class Diary extends Entity {
 
     private Long did;
     private String content;

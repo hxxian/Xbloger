@@ -27,7 +27,7 @@ public class DiaryServiceImpl implements DiaryService {
         diary.setGmtCreate(new Date());
         diary.setGmtUpdate(new Date());
 
-        diaryMapper.insertDiary(diary);
+        diaryMapper.insert(diary);
     }
 
     @Override

@@ -1,9 +1,6 @@
 package com.wuling.xbloger.util;
 
-import com.wuling.xbloger.entity.ArticleSnapshot;
-import com.wuling.xbloger.entity.ArticleType;
-import com.wuling.xbloger.entity.Comment;
-import com.wuling.xbloger.entity.SiteSnapshot;
+import com.wuling.xbloger.entity.*;
 import com.wuling.xbloger.entity.bo.ArticleInfoBO;
 import com.wuling.xbloger.entity.bo.HomeArticleBO;
 import com.wuling.xbloger.entity.bo.LatestCommentBO;
@@ -30,6 +27,7 @@ public class ObjectBuilder {
         if (articleType != null) {
             articleTypeVo.setTypeId(articleType.getTypeId());
             articleTypeVo.setTypeName(articleType.getTypeName());
+            articleTypeVo.setGmtCreate(articleType.getGmtCreate().getTime());
         }
         return articleTypeVo;
     }
@@ -109,5 +107,17 @@ public class ObjectBuilder {
             bo.setCommentTime(comment.getGmtCreate().getTime());
         }
         return bo;
+    }
+
+    public static OpRecordVO buildOpRecordVo(OpRecord record) {
+        OpRecordVO vo = new OpRecordVO();
+        if (record != null) {
+            vo.setId(record.getId());
+            vo.setOpDesc(record.getOpDesc());
+            vo.setOpUser(record.getOpUser());
+            vo.setIpAddr(record.getIpAddr());
+            vo.setGmtCreate(record.getGmtCreate().getTime());
+        }
+        return vo;
     }
 }

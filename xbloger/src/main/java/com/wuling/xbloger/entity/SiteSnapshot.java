@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Setter
 @Getter
-public class SiteSnapshot {
+public class SiteSnapshot extends Entity {
 
     private Integer siteId;
 

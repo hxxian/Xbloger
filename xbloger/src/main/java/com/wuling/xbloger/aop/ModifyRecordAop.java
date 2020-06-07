@@ -1,8 +1,11 @@
 package com.wuling.xbloger.aop;
 
 import com.wuling.xbloger.annotation.ModifyRecord;
-import com.wuling.xbloger.annotation.RecordColumn;
+import com.wuling.xbloger.annotation.ModifyRecordColumn;
+import com.wuling.xbloger.entity.Entity;
 import com.wuling.xbloger.entity.Record;
+import com.wuling.xbloger.mapper.BaseMapper;
+import com.wuling.xbloger.mapper.BaseRecordMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,16 +20,14 @@ import java.util.Date;
  * @Author: wu_ling
  * @Date: 2020/6/4
  * @Desc: 数据更新记录aop处理
+ * TODO 暂时不需要数据更新日志记录，功能也尚未完善
  */
 //@Aspect
 //@Component
 @Slf4j
 public class ModifyRecordAop {
 
-    /**
-     * 仅仅拦截update方法，参数固定，即BaseDao里的update(Entity entity, Long entityId)
-     */
-//    @Pointcut("execution(* com.wuling.xbloger.manager..*.update(..))")
+//    @Pointcut("execution(* com.wuling.xbloger.manager.*.update(..))")
     public void cutDataModify() {
     }
 
@@ -35,17 +36,21 @@ public class ModifyRecordAop {
         log.info("recordCheck staring...");
         Object[] args = proceedingJoinPoint.getArgs();
         if (args.length > 0) {
-//            BaseDao baseDao = (BaseDao) proceedingJoinPoint.getThis();
-//            Entity currEntity = (Entity) args[0];
-            Long entityId = (Long) args[1];
+            if (!(proceedingJoinPoint.getThis() instanceof BaseRecordMapper)) {
+                proceedingJoinPoint.proceed(args);
+                return;
+            }
 
-//            ModifyRecord modifyRecordAnnotation = currEntity.getClass().getAnnotation(ModifyRecord.class);
-            ModifyRecord modifyRecordAnnotation = null;
+            BaseRecordMapper baseMapper = (BaseRecordMapper) proceedingJoinPoint.getThis();
+            Entity currEntity = (Entity) args[0];
+            long entityId = 0;
+
+            ModifyRecord modifyRecordAnnotation = currEntity.getClass().getAnnotation(ModifyRecord.class);
             if (modifyRecordAnnotation != null) {
                 // 数据变更的表名
                 String tableName = modifyRecordAnnotation.value();
 
-//                Entity oldEntity = baseDao.getById(entityId);
+                Entity oldEntity = (Entity) baseMapper.getById(entityId);
 
 //                Field[] fields = currEntity.getClass().getDeclaredFields();
                 Field[] fields = null;
@@ -58,8 +63,8 @@ public class ModifyRecordAop {
                     Object newVal = null;
 
                     if (oldVal != null && !oldVal.equals(newVal)) {
-                        RecordColumn recordColumn = field.getAnnotation(RecordColumn.class);
-                        if (recordColumn != null) {
+                        ModifyRecordColumn modifyRecordColumn = field.getAnnotation(ModifyRecordColumn.class);
+                        if (modifyRecordColumn != null) {
                             Record record = new Record();
 
                             record.setOpUser("舞零");
@@ -72,7 +77,7 @@ public class ModifyRecordAop {
                             record.setGmtUpdate(new Date());
 
                             // 数据变更的列名
-                            String columnName = recordColumn.value();
+                            String columnName = modifyRecordColumn.value();
                             record.setRecordTableColumn(columnName);
 
                             log.info("记录数据变更：[{}]", record);

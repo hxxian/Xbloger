@@ -1,6 +1,8 @@
 package com.wuling.xbloger.service.imp;
 
+import com.wuling.xbloger.entity.ArticleSnapshot;
 import com.wuling.xbloger.entity.ArticleType;
+import com.wuling.xbloger.mapper.ArticleSnapshotMapper;
 import com.wuling.xbloger.mapper.ArticleTypeMapper;
 import com.wuling.xbloger.service.ArticleTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +21,34 @@ public class ArticleTypeServiceImpl implements ArticleTypeService {
 
     @Autowired
     private ArticleTypeMapper articleTypeMapper;
+    @Autowired
+    private ArticleSnapshotMapper articleSnapshotMapper;
 
     @Override
     public void addArticleType(String typeName) {
         ArticleType articleType = buildArticleType(typeName);
-        articleTypeMapper.insertArticleType(articleType);
+        articleTypeMapper.insert(articleType);
     }
 
     @Override
     public List<ArticleType> listArticleType() {
         List<ArticleType> articleTypes = articleTypeMapper.listAll();
         return articleTypes;
+    }
+
+    @Override
+    public void updateTypeName(Long typeId, String typeName) {
+        articleTypeMapper.updateTypeName(typeId, typeName);
+    }
+
+    @Override
+    public boolean deleteType(Long typeId) {
+        List<ArticleSnapshot> snapshots = articleSnapshotMapper.listShowArticleSnapByTypeId(typeId, 0, 1);
+        if (snapshots != null && !snapshots.isEmpty()) {
+            return false;
+        }
+        articleTypeMapper.delete(typeId);
+        return true;
     }
 
     private ArticleType buildArticleType(String typeName) {

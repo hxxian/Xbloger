@@ -7,7 +7,7 @@ package com.wuling.xbloger.constant;
  */
 public class KeyIdConstant {
 
-    public static final String ADMIN_NAME = "admin";
+    public static final String ADMIN_NAME = "舞零";
 
     public static final Integer SITE_SNAPSHOT_ID = 1;
 
