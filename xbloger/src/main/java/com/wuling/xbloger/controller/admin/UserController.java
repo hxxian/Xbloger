@@ -2,6 +2,7 @@ package com.wuling.xbloger.controller.admin;
 
 import com.wuling.xbloger.annotation.OperateRecord;
 import com.wuling.xbloger.entity.vo.TokenVO;
+import com.wuling.xbloger.manager.TokenManager;
 import com.wuling.xbloger.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,8 +44,8 @@ public class UserController {
     @PostMapping("logout")
     @OperateRecord("注销")
     public ResponseEntity<Void> logout() {
-        // TODO
-        return null;
+        TokenManager.getInstance().clearTokens();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
 }
