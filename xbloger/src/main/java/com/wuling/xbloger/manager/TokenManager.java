@@ -16,8 +16,8 @@ public class TokenManager {
     private static final int SESSION_CAPACITY = 1;
     private Map<String, Long> sessionTokens;
 
-    // token有效时长30分钟
-    private static final long TOKEN_VALID_TIME_PERIOD = 30 * 60 * 1000;
+    // token有效时长12小时
+    private static final long TOKEN_VALID_TIME_PERIOD = 60 * 60 * 1000 * 12;
 
     private TokenManager() {
         sessionTokens = new HashMap<>(SESSION_CAPACITY);

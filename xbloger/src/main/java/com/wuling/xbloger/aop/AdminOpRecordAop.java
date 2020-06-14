@@ -32,7 +32,7 @@ public class AdminOpRecordAop {
     @Autowired
     private OpRecordMapper opRecordMapper;
 
-    @Pointcut("execution(* com.wuling.xbloger.controller.admin.*.*(..))")
+    @Pointcut("execution(* com.wuling.xbloger.controller.admin.*.*(..)) && !execution(* com.wuling.xbloger.controller.admin.FileController.*(..))")
     public void pointCut() {}
 
     @After("pointCut()")
@@ -49,6 +49,9 @@ public class AdminOpRecordAop {
             method = joinPoint.getTarget().getClass().getMethod(joinPoint.getSignature().getName(), argTypes);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
+        }
+        if (method == null) {
+            return;
         }
         OperateRecord operateRecord = method.getAnnotation(OperateRecord.class);
         if (operateRecord != null) {

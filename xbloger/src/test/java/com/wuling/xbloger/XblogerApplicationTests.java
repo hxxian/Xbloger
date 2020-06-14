@@ -9,6 +9,7 @@ import com.wuling.xbloger.service.ArticleService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.DigestUtils;
 
 @SpringBootTest
 class XblogerApplicationTests {
@@ -30,11 +31,9 @@ class XblogerApplicationTests {
 
     @Test
     void testInsertArticle() {
-        long typeId = 1;
-        String title = "test title";
-        String content = "test content";
-        String digest = "test digest";
-        articleService.addArticle(typeId, title, content, digest);
+        String password = "";
+        String res = DigestUtils.md5DigestAsHex(password.getBytes());
+        System.out.println(res);
     }
 
 }
