@@ -1,5 +1,6 @@
 package com.wuling.xbloger.controller.client;
 
+import com.wuling.xbloger.controller.R;
 import com.wuling.xbloger.entity.ArticleSnapshot;
 import com.wuling.xbloger.entity.ArticleType;
 import com.wuling.xbloger.entity.bo.ArticleInfoBO;
@@ -9,6 +10,7 @@ import com.wuling.xbloger.entity.vo.ArticleTitleVO;
 import com.wuling.xbloger.entity.vo.ArticleTypeVO;
 import com.wuling.xbloger.service.ArticleService;
 import com.wuling.xbloger.service.ArticleTypeService;
+import com.wuling.xbloger.service.ContributionService;
 import com.wuling.xbloger.util.ObjectBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +37,7 @@ public class ArticleController {
     private ArticleTypeService articleTypeService;
     @Autowired
     private ArticleService articleService;
+
 
     /**
      * 查询文章类型列表

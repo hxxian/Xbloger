@@ -1,6 +1,6 @@
 package com.wuling.xbloger.aop;
 
-import com.wuling.xbloger.enumeration.ErrorCodeEnum;
+import com.wuling.xbloger.enumeration.ResultCodeEnum;
 import com.wuling.xbloger.exception.AuthException;
 import com.wuling.xbloger.manager.TokenManager;
 import lombok.extern.slf4j.Slf4j;
@@ -8,8 +8,6 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -40,7 +38,7 @@ public class AdminTokenVerifyAop {
         String token = request.getHeader("Access-Token");
         boolean isValid = TokenManager.getInstance().checkTokenIsValid(token);
         if (!isValid) {
-            throw new AuthException(ErrorCodeEnum.NO_AUTH.getCode(), ErrorCodeEnum.NO_AUTH.getMsg());
+            throw new AuthException(ResultCodeEnum.NO_AUTH.getCode(), ResultCodeEnum.NO_AUTH.getMsg());
         }
     }
 }

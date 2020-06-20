@@ -5,13 +5,18 @@ package com.wuling.xbloger.enumeration;
  * @Date: 2020/5/29
  * @Desc: TODO
  */
-public enum ErrorCodeEnum {
-    NO_AUTH(-100, "未登录");
+public enum ResultCodeEnum {
+    OP_FAILURE(-100, "操作失败"),
+
+    QUERY_SUCCESS(200, "查询成功"),
+    OP_SUCCESS(201, "操作成功"),
+
+    NO_AUTH(-300, "未登录");
 
     private Integer code;
     private String msg;
 
-    ErrorCodeEnum(Integer code, String msg) {
+    ResultCodeEnum(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }

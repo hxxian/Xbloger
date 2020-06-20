@@ -1,10 +1,9 @@
 package com.wuling.xbloger.util;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.ZoneId;
+import java.time.*;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * @Author: wu_ling
@@ -28,4 +27,43 @@ public class DateUtil {
         Period period = Period.between(localDate, now);
         return period.getDays();
     }
+
+    public static Date localDate2Date(LocalDate localDate) {
+        if(null == localDate) {
+            return null;
+        }
+        ZonedDateTime zonedDateTime = localDate.atStartOfDay(ZoneId.systemDefault());
+        return Date.from(zonedDateTime.toInstant());
+    }
+
+    /**
+     * 获取当前年的起止时间
+     *
+     * @return
+     */
+    public static String[] getCurrYearPeriod() {
+        LocalDate localDate = LocalDate.now();
+        int year = localDate.getYear();
+        return new String[] {year + "-01-01", year + "-12-31"};
+    }
+
+
+    public static int getWeekOfYear(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.setTime(date);
+        // 这里记得要-2 原因如下备注
+        return calendar.get(Calendar.WEEK_OF_YEAR) - 2;
+    }
+
+
+    public static int getWeekOfYear(LocalDate localDate) {
+        Date date = localDate2Date(localDate);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.setTime(date);
+        // 这里记得要-2 原因如下备注
+        return calendar.get(Calendar.WEEK_OF_YEAR) - 2;
+    }
+
 }
