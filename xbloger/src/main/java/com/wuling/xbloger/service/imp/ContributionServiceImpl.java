@@ -29,15 +29,20 @@ public class ContributionServiceImpl implements ContributionService {
 
     @Override
     public ContributionBO listContributionInCurrYear() {
+        long start = System.currentTimeMillis();
+
         int total = 371;
         LocalDate now = LocalDate.now();
         int dayOfWeek = now.getDayOfWeek().getValue();
         int limit = total - (7 - dayOfWeek) - 1;
 
+        // 查询有活动记录的数据
         List<Contribution> contributions = contributionMapper.listContributionByYear(limit);
+
+        Map<String, Integer> contributeMap = new HashMap<>();
+        Map<String, Integer> contributeCountMap = new HashMap<>();
+
         if (contributions != null && !contributions.isEmpty()) {
-            Map<String, Integer> contributeMap = new HashMap<>();
-            Map<String, Integer> contributeCountMap = new HashMap<>();
 
             for (Contribution c : contributions) {
                 LocalDate localDate = DateUtil.date2LocalDate(c.getGmtCreate());
@@ -50,53 +55,73 @@ public class ContributionServiceImpl implements ContributionService {
                     contributeCountMap.put(localDate.toString(), 1);
                 }
             }
-
-            List<ContributeDayDTO> days = new ArrayList<>(total);
-            days.add(new ContributeDayDTO(now));
-
-            for (int i = 1; i <= limit; i++) {
-                days.add(new ContributeDayDTO(now.plusDays(-i)));
-            }
-
-            for (int i = 1; i < (total - limit); i++) {
-                days.add(new ContributeDayDTO(now.plusDays(i)));
-            }
-
-            Map<Integer, ContributeWeekDTO> weekMap = new HashMap<>();
-
-            for (int i = 0; i < days.size(); i++) {
-                LocalDate localDate = days.get(i).getLocalDate();
-                if (contributeMap.containsKey(localDate.toString())) {
-                    days.get(i).setCore(contributeMap.get(localDate.toString()));
-                    days.get(i).setTimestamp(DateUtil.localDate2Date(localDate).getTime());
-                    days.get(i).setContributeCount(contributeCountMap.get(localDate.toString()));
-                }
-
-                int weekOfYear = DateUtil.getWeekOfYear(days.get(i).getLocalDate());
-                if (weekMap.containsKey(weekOfYear)) {
-                    ContributeWeekDTO week = weekMap.get(weekOfYear);
-                    week.getDaysOfWeek().add(days.get(i));
-                } else {
-                    List<ContributeDayDTO> daysOfWeek = new ArrayList<>();
-                    daysOfWeek.add(days.get(i));
-                    ContributeWeekDTO week = new ContributeWeekDTO(weekOfYear, daysOfWeek);
-                    weekMap.put(weekOfYear, week);
-                }
-            }
-
-            // TODO 排序时还要处理不同年份，因为不同年份的周数可能一样
-            List<ContributeWeekDTO> weekList = weekMap.values().stream().collect(Collectors.toList());
-            Collections.sort(weekList, Comparator.comparingInt(ContributeWeekDTO::getWeekOfYear));
-
-            for (int i = 0; i < weekList.size(); i++) {
-                List<ContributeDayDTO> dayList = weekList.get(i).getDaysOfWeek();
-                Collections.sort(dayList, Comparator.comparingLong(ContributeDayDTO::getTimestamp));
-            }
-            ContributionBO contributionBO = new ContributionBO(weekList);
-            return contributionBO;
         }
 
-        return null;
+        // 创建371个date数据（1年52周 + 1周）
+        List<ContributeDayDTO> days = new ArrayList<>(total);
+        days.add(new ContributeDayDTO(now));
+
+        for (int i = 1; i <= limit; i++) {
+            days.add(new ContributeDayDTO(now.plusDays(-i)));
+        }
+
+        for (int i = 1; i < (total - limit); i++) {
+            days.add(new ContributeDayDTO(now.plusDays(i)));
+        }
+
+        Map<String, ContributeWeekDTO> weekMap = new HashMap<>();
+
+        for (int i = 0; i < days.size(); i++) {
+            LocalDate localDate = days.get(i).getLocalDate();
+            int currYear = localDate.getYear();
+
+            // 如果匹配，则表示当前date有活动记录，设置分值
+            if (contributeMap.containsKey(localDate.toString())) {
+                days.get(i).setCore(contributeMap.get(localDate.toString()));
+                days.get(i).setContributeCount(contributeCountMap.get(localDate.toString()));
+            }
+
+            days.get(i).setTimestamp(DateUtil.localDate2Date(localDate).getTime());
+
+            int weekOfYear = DateUtil.getWeekOfYear(days.get(i).getLocalDate());
+
+            // 如果出现date的月份是12月份，同时又是第1周，则表示date的周编号与下一年的第一周同属一周，因此将其编置到下一年的第1周
+            if (weekOfYear == 1 && localDate.getMonth().getValue() == 12) {
+                currYear++;
+            }
+
+            String weekOfYearKey = currYear + "-" + weekOfYear;
+            if (weekMap.containsKey(weekOfYearKey)) {
+                ContributeWeekDTO week = weekMap.get(weekOfYearKey);
+                week.getDaysOfWeek().add(days.get(i));
+            } else {
+                List<ContributeDayDTO> daysOfWeek = new ArrayList<>();
+                daysOfWeek.add(days.get(i));
+                ContributeWeekDTO week = new ContributeWeekDTO(currYear, weekOfYear, daysOfWeek);
+                weekMap.put(weekOfYearKey, week);
+            }
+        }
+
+        // 给53个周排序，递增排序
+        List<ContributeWeekDTO> weekList = weekMap.values().stream().collect(Collectors.toList());
+        Collections.sort(weekList, (w1, w2) -> {
+            if (!w1.getYear().equals(w2.getYear())) {
+                return w1.getYear() - w2.getYear();
+            }
+            return w1.getWeekOfYear() - w2.getWeekOfYear();
+        });
+
+        // 给每一周的7天排序，使其保持星期一到星期天的顺序排列
+        for (int i = 0; i < weekList.size(); i++) {
+            List<ContributeDayDTO> dayList = weekList.get(i).getDaysOfWeek();
+            Collections.sort(dayList, (d1, d2) -> (int) (d1.getTimestamp() - d2.getTimestamp()));
+        }
+
+        ContributionBO contributionBO = new ContributionBO(weekList);
+        long end = System.currentTimeMillis();
+
+        System.out.println(end - start);
+        return contributionBO;
     }
 
     private Integer getCore(Integer type) {

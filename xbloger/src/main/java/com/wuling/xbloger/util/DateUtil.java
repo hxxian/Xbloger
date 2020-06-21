@@ -63,7 +63,13 @@ public class DateUtil {
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         calendar.setTime(date);
         // 这里记得要-2 原因如下备注
-        return calendar.get(Calendar.WEEK_OF_YEAR) - 2;
+        return calendar.get(Calendar.WEEK_OF_YEAR);
+    }
+
+    public static void main(String[] args) {
+        LocalDate localDate = LocalDate.of(2020, 1, 8);
+        int weekOfYear = getWeekOfYear(localDate);
+        System.out.println(weekOfYear);
     }
 
 }
