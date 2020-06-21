@@ -16,7 +16,7 @@ public class Contribution {
 
     private Long id;
     private Integer type;
-    private String desc;
+    private String des;
     private Date gmtCreate;
     private Date gmtUpdate;
 

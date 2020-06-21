@@ -7,8 +7,8 @@ package com.wuling.xbloger.enumeration;
  */
 public enum ContributionEnum {
 
-    CREATE_ARTICLE(1, "新增文章", 50),
-    UPDATE_ARTICLE(2, "更新文章", 5),
+    CREATE_ARTICLE(1, "新增文章", 75),
+    UPDATE_ARTICLE(2, "更新文章", 10),
     CREATE_DIARY(3, "发表说说", 5),
     REPLY_COMMENT(4, "回复评论", 10);
 

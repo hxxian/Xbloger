@@ -3,12 +3,15 @@ package com.wuling.xbloger.service.imp;
 import com.wuling.xbloger.constant.KeyIdConstant;
 import com.wuling.xbloger.entity.Article;
 import com.wuling.xbloger.entity.ArticleSnapshot;
+import com.wuling.xbloger.entity.Contribution;
 import com.wuling.xbloger.entity.bo.ArchiveBO;
 import com.wuling.xbloger.entity.bo.ArticleInfoBO;
 import com.wuling.xbloger.entity.bo.HomeArticleBO;
 import com.wuling.xbloger.entity.vo.ArticleTitleVO;
+import com.wuling.xbloger.enumeration.ContributionEnum;
 import com.wuling.xbloger.mapper.ArticleMapper;
 import com.wuling.xbloger.mapper.ArticleSnapshotMapper;
+import com.wuling.xbloger.mapper.ContributionMapper;
 import com.wuling.xbloger.mapper.SiteSnapshotMapper;
 import com.wuling.xbloger.service.ArticleService;
 import com.wuling.xbloger.util.DateUtil;
@@ -39,6 +42,8 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleSnapshotMapper articleSnapshotMapper;
     @Autowired
     private SiteSnapshotMapper siteSnapshotMapper;
+    @Autowired
+    private ContributionMapper contributionMapper;
 
     @Override
     public Boolean addArticle(Long typeId, String title, String content, String digest) {
@@ -51,6 +56,8 @@ public class ArticleServiceImpl implements ArticleService {
             articleSnapshotMapper.insert(snapshot);
 
             siteSnapshotMapper.updateArticleCount(KeyIdConstant.SITE_SNAPSHOT_ID, 1);
+
+            contributionMapper.insert(ContributionEnum.CREATE_ARTICLE.getTypeId(), ContributionEnum.CREATE_ARTICLE.getDesc());
             return true;
         } catch (Exception e) {
             log.error("添加文章异常， e： ", e);
@@ -67,6 +74,8 @@ public class ArticleServiceImpl implements ArticleService {
 
         ArticleSnapshot snapshot = genArticleSnapshot(article);
         articleSnapshotMapper.updateArticleSnap(snapshot);
+
+        contributionMapper.insert(ContributionEnum.UPDATE_ARTICLE.getTypeId(), ContributionEnum.UPDATE_ARTICLE.getDesc());
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.wuling.xbloger.service.imp;
 
 import com.wuling.xbloger.entity.Diary;
+import com.wuling.xbloger.enumeration.ContributionEnum;
+import com.wuling.xbloger.mapper.ContributionMapper;
 import com.wuling.xbloger.mapper.DiaryMapper;
 import com.wuling.xbloger.service.DiaryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class DiaryServiceImpl implements DiaryService {
 
     @Autowired
     private DiaryMapper diaryMapper;
+    @Autowired
+    private ContributionMapper contributionMapper;
 
     @Override
     public void saveDiary(String content) {
@@ -28,6 +32,8 @@ public class DiaryServiceImpl implements DiaryService {
         diary.setGmtUpdate(new Date());
 
         diaryMapper.insert(diary);
+
+        contributionMapper.insert(ContributionEnum.CREATE_DIARY.getTypeId(), ContributionEnum.CREATE_DIARY.getDesc());
     }
 
     @Override

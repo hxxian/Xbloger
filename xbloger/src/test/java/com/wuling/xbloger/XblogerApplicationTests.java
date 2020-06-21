@@ -1,9 +1,12 @@
 package com.wuling.xbloger;
 
+import com.wuling.xbloger.entity.Contribution;
 import com.wuling.xbloger.entity.Diary;
 import com.wuling.xbloger.entity.bo.ArticleInfoBO;
+import com.wuling.xbloger.enumeration.ContributionEnum;
 import com.wuling.xbloger.mapper.ArticleMapper;
 import com.wuling.xbloger.mapper.ArticleSnapshotMapper;
+import com.wuling.xbloger.mapper.ContributionMapper;
 import com.wuling.xbloger.mapper.DiaryMapper;
 import com.wuling.xbloger.service.ArticleService;
 import org.junit.jupiter.api.Test;
@@ -22,6 +25,8 @@ class XblogerApplicationTests {
     private ArticleService articleService;
     @Autowired
     private DiaryMapper diaryMapper;
+    @Autowired
+    private ContributionMapper contributionMapper;
 
 
     @Test
@@ -34,6 +39,13 @@ class XblogerApplicationTests {
         String password = "";
         String res = DigestUtils.md5DigestAsHex(password.getBytes());
         System.out.println(res);
+    }
+
+    @Test
+    void testInsertContribution() {
+        Contribution contribution = new Contribution();
+        contribution.setType(ContributionEnum.CREATE_ARTICLE.getTypeId());
+        contribution.setDes(ContributionEnum.CREATE_ARTICLE.getDesc());
     }
 
 }
