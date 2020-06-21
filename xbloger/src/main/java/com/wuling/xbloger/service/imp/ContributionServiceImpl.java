@@ -29,7 +29,7 @@ public class ContributionServiceImpl implements ContributionService {
 
     @Override
     public ContributionBO listContributionInCurrYear() {
-        long start = System.currentTimeMillis();
+//        long start = System.currentTimeMillis();
 
         int total = 371;
         LocalDate now = LocalDate.now();
@@ -120,7 +120,7 @@ public class ContributionServiceImpl implements ContributionService {
         ContributionBO contributionBO = new ContributionBO(weekList);
         long end = System.currentTimeMillis();
 
-        System.out.println(end - start);
+//        System.out.println(end - start);
         return contributionBO;
     }
 
