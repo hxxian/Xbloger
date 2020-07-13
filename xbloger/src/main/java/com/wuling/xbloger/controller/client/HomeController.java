@@ -51,7 +51,10 @@ public class HomeController {
         }
 
         Diary latestDiary = diaryService.getLatestDiary();
-        Optional.ofNullable(latestDiary).ifPresent(d -> homeVo.setDiaryContent(d.getContent()));
+        Optional.ofNullable(latestDiary).ifPresent(d -> {
+            homeVo.setDiaryContent(d.getContent());
+            homeVo.setDiaryTimestamp(d.getGmtCreate().getTime());
+        });
 
         return ResponseEntity.ok(homeVo);
     }

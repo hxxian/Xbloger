@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 public class ArchiveVO {
 
+    private Long monthTimestamp;
     private String dateGroup;
     private List<ArticleTitleVO> articleTitles;
 

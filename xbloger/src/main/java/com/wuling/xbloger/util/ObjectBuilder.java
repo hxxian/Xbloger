@@ -7,13 +7,11 @@ import com.wuling.xbloger.entity.bo.LatestCommentBO;
 import com.wuling.xbloger.entity.vo.*;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 /**
  * @Author: wu_ling
@@ -38,6 +36,7 @@ public class ObjectBuilder {
             articleTitleVo.setArticleId(snapshot.getArticleId());
             articleTitleVo.setArticleTitle(snapshot.getTitle());
             articleTitleVo.setPublishTime(snapshot.getPublishTime().getTime());
+            articleTitleVo.setReadCount(snapshot.getReadCount());
         }
         return articleTitleVo;
     }
@@ -82,9 +81,12 @@ public class ObjectBuilder {
                     .ofEpochSecond(entry.getKey(), 0, ZoneOffset.of("+8"));
             String dateGroup = localDateTime.getYear() + "-" + localDateTime.getMonthValue();
             archiveVO.setDateGroup(dateGroup);
+            archiveVO.setMonthTimestamp(entry.getKey());
 
             archiveVOs.add(archiveVO);
         }
+        Collections.sort(archiveVOs, (a1, a2) -> (int) (a2.getMonthTimestamp() - a1.getMonthTimestamp()));
+
         return archiveVOs;
     }
 
@@ -94,7 +96,7 @@ public class ObjectBuilder {
             vo.setAccessCount(site.getAccessCount());
             vo.setArticleCount(site.getArticleCount());
             vo.setCommentCount(site.getCommentCount());
-            vo.setFoundingDays(DateUtil.getDayPeriodForNow(site.getFoundingTime()));
+            vo.setFoundingDays(DateUtil.getDayDurationForNow(site.getFoundingTime()));
         }
         return vo;
     }

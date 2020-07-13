@@ -20,12 +20,12 @@ public class DateUtil {
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 
-    public static Integer getDayPeriodForNow(Date date) {
-        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate now = LocalDate.now();
+    public static Integer getDayDurationForNow(Date date) {
+        LocalDateTime localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        LocalDateTime now = LocalDateTime.now();
 
-        Period period = Period.between(localDate, now);
-        return period.getDays();
+        Duration duration = Duration.between(localDate, now);
+        return (int) duration.toDays();
     }
 
     public static Date localDate2Date(LocalDate localDate) {

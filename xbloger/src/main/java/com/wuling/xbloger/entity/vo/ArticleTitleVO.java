@@ -15,5 +15,6 @@ public class ArticleTitleVO {
     private Long articleId;
     private Long publishTime;
     private String articleTitle;
+    private Integer readCount;
 
 }

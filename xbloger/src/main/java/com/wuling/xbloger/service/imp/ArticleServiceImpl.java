@@ -89,7 +89,7 @@ public class ArticleServiceImpl implements ArticleService {
     public Map<Long, List<ArticleTitleVO>> listArchives() {
         List<ArticleSnapshot> snapshots = articleSnapshotMapper.listAllArticleWithBasicInfo();
         if (snapshots != null && !snapshots.isEmpty()) {
-            Map<Long, List<ArticleTitleVO>> map = new HashMap<>();
+            Map<Long, List<ArticleTitleVO>> map = new LinkedHashMap<>();
             for (ArticleSnapshot s : snapshots) {
                 LocalDateTime publishTime = DateUtil.date2LocalDateTime(s.getPublishTime());
                 LocalDateTime localDateTime = publishTime.withDayOfMonth(1).withHour(0).withMinute(0)
