@@ -27,6 +27,13 @@ public interface ArticleTypeService {
     List<ArticleType> listArticleType();
 
     /**
+     * 查询所有文章类别，带每个类别下的文章数量
+     *
+     * @return
+     */
+    List<ArticleType> listTypeWithCount();
+
+    /**
      * 更新文章类别名
      *
      * @param typeId

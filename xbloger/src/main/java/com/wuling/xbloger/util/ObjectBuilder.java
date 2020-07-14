@@ -25,7 +25,11 @@ public class ObjectBuilder {
         if (articleType != null) {
             articleTypeVo.setTypeId(articleType.getTypeId());
             articleTypeVo.setTypeName(articleType.getTypeName());
-            articleTypeVo.setGmtCreate(articleType.getGmtCreate().getTime());
+            if (articleType.getGmtCreate() != null) {
+                articleTypeVo.setGmtCreate(articleType.getGmtCreate().getTime());
+            }
+            articleTypeVo.setArticleCount(articleType.getArticleCount() == null
+                    ? 0 : articleType.getArticleCount());
         }
         return articleTypeVo;
     }

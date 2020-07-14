@@ -19,5 +19,6 @@ public class HomeVO {
     private List<ArticleTitleVO> articleTitles;
     private String diaryContent;
     private Long diaryTimestamp;
+    private List<ArticleTypeVO> articleTypes;
 
 }

@@ -1,11 +1,14 @@
 package com.wuling.xbloger.controller.client;
 
 import com.wuling.xbloger.entity.ArticleSnapshot;
+import com.wuling.xbloger.entity.ArticleType;
 import com.wuling.xbloger.entity.Diary;
 import com.wuling.xbloger.entity.bo.HomeArticleBO;
 import com.wuling.xbloger.entity.vo.ArticleTitleVO;
+import com.wuling.xbloger.entity.vo.ArticleTypeVO;
 import com.wuling.xbloger.entity.vo.HomeVO;
 import com.wuling.xbloger.service.ArticleService;
+import com.wuling.xbloger.service.ArticleTypeService;
 import com.wuling.xbloger.service.DiaryService;
 import com.wuling.xbloger.util.ObjectBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,8 @@ public class HomeController {
     private ArticleService articleService;
     @Autowired
     private DiaryService diaryService;
+    @Autowired
+    private ArticleTypeService articleTypeService;
 
     @GetMapping
     public ResponseEntity<HomeVO> getHomeVo() {
@@ -48,6 +53,16 @@ public class HomeController {
             List<ArticleTitleVO> articleTitleVos
                     = snapshots.stream().map(a -> ObjectBuilder.buildArticleTitleVo(a)).collect(Collectors.toList());
             Optional.ofNullable(articleTitleVos).ifPresent(a -> homeVo.setArticleTitles(a));
+        }
+
+        List<ArticleType> types = articleTypeService.listTypeWithCount();
+        if (types != null && !types.isEmpty()) {
+            List<ArticleTypeVO> typeVOS = new ArrayList<>(types.size());
+            for (ArticleType type : types) {
+                ArticleTypeVO typeVO = ObjectBuilder.buildArticleTypeVo(type);
+                typeVOS.add(typeVO);
+            }
+            homeVo.setArticleTypes(typeVOS);
         }
 
         Diary latestDiary = diaryService.getLatestDiary();

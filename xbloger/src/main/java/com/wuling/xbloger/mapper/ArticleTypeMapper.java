@@ -24,6 +24,15 @@ public interface ArticleTypeMapper extends BaseRecordMapper<ArticleType> {
     })
     List<ArticleType> listAll();
 
+    @Select("select t.id, t.type_name, count(*) num from article_info a, article_type t " +
+            "where a.type_id = t.id GROUP BY a.type_id")
+    @Results({
+            @Result(property = "typeId" ,column = "id"),
+            @Result(property = "typeName" ,column = "type_name"),
+            @Result(property = "articleCount" ,column = "num"),
+    })
+    List<ArticleType> listTypeWithCount();
+
     @Select("select id, type_name, gmt_create from article_type where id = #{id}")
     @ResultMap("articleResultMap")
     @Override

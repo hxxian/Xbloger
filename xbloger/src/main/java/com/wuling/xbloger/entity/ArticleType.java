@@ -1,5 +1,6 @@
 package com.wuling.xbloger.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,10 @@ public class ArticleType extends Entity {
 
     private Long typeId;
     private String typeName;
+
+    // 非表字段
+    @JsonIgnore
+    private Integer articleCount;
 
     private Date gmtCreate;
     private Date gmtUpdate;

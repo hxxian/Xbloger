@@ -15,5 +15,6 @@ public class ArticleTypeVO {
     private Long typeId;
     private String typeName;
     private Long gmtCreate;
+    private Integer articleCount;
 
 }

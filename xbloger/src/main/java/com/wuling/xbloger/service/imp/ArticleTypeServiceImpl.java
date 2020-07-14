@@ -37,6 +37,11 @@ public class ArticleTypeServiceImpl implements ArticleTypeService {
     }
 
     @Override
+    public List<ArticleType> listTypeWithCount() {
+        return articleTypeMapper.listTypeWithCount();
+    }
+
+    @Override
     public void updateTypeName(Long typeId, String typeName) {
         articleTypeMapper.updateTypeName(typeId, typeName);
     }
