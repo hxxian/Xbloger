@@ -1,6 +1,8 @@
 package com.wuling.xbloger.controller.client;
 
+import com.wuling.xbloger.controller.R;
 import com.wuling.xbloger.entity.Comment;
+import com.wuling.xbloger.enumeration.ResultCodeEnum;
 import com.wuling.xbloger.service.CommentService;
 import com.wuling.xbloger.util.IpUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +29,7 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping
-    public ResponseEntity<Void> saveComment(HttpServletRequest request, Comment comment) {
+    public ResponseEntity<R> saveComment(HttpServletRequest request, Comment comment) {
         String ip = IpUtil.getIpAddr(request);
         if (comment != null) {
             comment.setIpAddr(ip);
@@ -38,7 +40,7 @@ public class CommentController {
             log.error("新增评论异常. error: [{}]", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body(null);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new R(ResultCodeEnum.OP_SUCCESS, null));
     }
 
 }

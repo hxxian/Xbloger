@@ -18,7 +18,6 @@ public interface CommentMapper extends BaseMapper<Comment> {
     @Override
     void insert(Comment comment);
 
-
     @Select("select * from comment where id >= (select id from comment order by id asc limit #{offset}, 1) order by id asc limit #{limit}")
     @Results(id = "commentMap", value = {
             @Result(property = "commentId", column = "id"),
