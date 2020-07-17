@@ -8,10 +8,7 @@ import com.wuling.xbloger.entity.vo.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author: wu_ling
@@ -126,4 +123,41 @@ public class ObjectBuilder {
         }
         return vo;
     }
+
+    public static List<CommentVO> buildCommentVO(List<Comment> comments) {
+        if (comments == null || comments.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        List<CommentVO> commentVOS = new ArrayList<>();
+        Map<Long, List<Comment>> map = new HashMap<>();
+        for (Comment c : comments) {
+            if (c.getReplyCommentId() <= 0) {
+                CommentVO vo = new CommentVO();
+                vo.setSessionId(c.getCommentId());
+                vo.setTimestamp(c.getGmtCreate().getTime());
+                vo.setComments(Arrays.asList(c));
+                continue;
+            }
+
+            List<Comment> list = null;
+
+            if (map.containsKey(c.getReplyCommentId())) {
+                list = map.get(c.getReplyCommentId());
+            }
+
+            if (list == null) {
+                list = new ArrayList<>();
+            }
+
+            list.add(c);
+            map.put(c.getReplyCommentId(), list);
+
+        }
+
+        Collections.sort(commentVOS, (c1, c2) -> (int) (c1.getTimestamp() - c2.getTimestamp()));
+
+        return commentVOS;
+    }
+
 }

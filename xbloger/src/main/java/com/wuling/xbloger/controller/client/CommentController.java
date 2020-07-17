@@ -9,11 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @Author: wu_ling
@@ -41,6 +40,15 @@ public class CommentController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(new R(ResultCodeEnum.OP_SUCCESS, null));
+    }
+
+    @GetMapping("list/aid/{aid}")
+    public ResponseEntity<R> listComment(@PathVariable("aid") Long articleId) {
+        if (articleId == null) {
+            return ResponseEntity.ok(new R(ResultCodeEnum.QUERY_SUCCESS, null));
+        }
+        List<Comment> comments = commentService.listCommentByArticleId(articleId);
+        return ResponseEntity.ok(new R(ResultCodeEnum.QUERY_SUCCESS, comments));
     }
 
 }

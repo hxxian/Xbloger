@@ -4,6 +4,7 @@ import com.wuling.xbloger.entity.Comment;
 import com.wuling.xbloger.entity.bo.LatestCommentBO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: wu_ling
@@ -25,5 +26,13 @@ public interface CommentService {
      * @return
      */
     List<LatestCommentBO> listLatest10Comment();
+
+    /**
+     * 查询某一篇文章下的所有评论
+     *
+     * @param articleId
+     * @return
+     */
+    List<Comment> listCommentByArticleId(Long articleId);
 
 }

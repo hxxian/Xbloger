@@ -8,10 +8,7 @@ import com.wuling.xbloger.util.ObjectBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author: wu_ling
@@ -44,5 +41,12 @@ public class CommentServiceImpl implements CommentService {
             return bos;
         }
         return Collections.emptyList();
+    }
+
+    @Override
+    public List<Comment> listCommentByArticleId(Long articleId) {
+        List<Comment> comments = commentMapper.listCommentByArticleId(articleId);
+
+        return comments;
     }
 }
