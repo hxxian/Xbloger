@@ -131,12 +131,21 @@ public class ObjectBuilder {
 
         List<CommentVO> commentVOS = new ArrayList<>();
         Map<Long, List<Comment>> map = new HashMap<>();
-        for (Comment c : comments) {
+        for (int i = 0; i < comments.size(); i++) {
+            Comment c = comments.get(i);
+            c.setIpAddr(null);
+            c.setEmail(null);
+            c.setWebsite(null);
+            c.setShowState(null);
+            c.setGmtUpdate(null);
+
             if (c.getReplyCommentId() <= 0) {
                 CommentVO vo = new CommentVO();
                 vo.setSessionId(c.getCommentId());
                 vo.setTimestamp(c.getGmtCreate().getTime());
                 vo.setComments(Arrays.asList(c));
+
+                commentVOS.add(vo);
                 continue;
             }
 
@@ -153,6 +162,15 @@ public class ObjectBuilder {
             list.add(c);
             map.put(c.getReplyCommentId(), list);
 
+        }
+
+        for (Map.Entry<Long, List<Comment>> entry : map.entrySet()) {
+            CommentVO vo = new CommentVO();
+            vo.setSessionId(entry.getKey());
+            vo.setTimestamp(entry.getValue().get(0).getGmtCreate().getTime());
+            vo.setComments(entry.getValue());
+
+            commentVOS.add(vo);
         }
 
         Collections.sort(commentVOS, (c1, c2) -> (int) (c1.getTimestamp() - c2.getTimestamp()));

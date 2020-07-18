@@ -1,5 +1,9 @@
 package com.wuling.xbloger.entity;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,17 +29,22 @@ public class Comment extends Entity {
     // 昵称
     private String nickname;
     // 邮箱
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String email;
     // 站点
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String website;
     // ip地址
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private String ipAddr;
     // 评论内容
     private String content;
     // 显示状态
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Integer showState;
     // 评论时间
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
     private Date gmtCreate;
-
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Date gmtUpdate;
 }

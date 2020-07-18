@@ -2,9 +2,11 @@ package com.wuling.xbloger.controller.client;
 
 import com.wuling.xbloger.controller.R;
 import com.wuling.xbloger.entity.Comment;
+import com.wuling.xbloger.entity.vo.CommentVO;
 import com.wuling.xbloger.enumeration.ResultCodeEnum;
 import com.wuling.xbloger.service.CommentService;
 import com.wuling.xbloger.util.IpUtil;
+import com.wuling.xbloger.util.ObjectBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,7 +50,8 @@ public class CommentController {
             return ResponseEntity.ok(new R(ResultCodeEnum.QUERY_SUCCESS, null));
         }
         List<Comment> comments = commentService.listCommentByArticleId(articleId);
-        return ResponseEntity.ok(new R(ResultCodeEnum.QUERY_SUCCESS, comments));
+        List<CommentVO> commentVOS = ObjectBuilder.buildCommentVO(comments);
+        return ResponseEntity.ok(new R(ResultCodeEnum.QUERY_SUCCESS, commentVOS));
     }
 
 }
