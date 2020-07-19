@@ -143,9 +143,12 @@ public class ObjectBuilder {
                 CommentVO vo = new CommentVO();
                 vo.setSessionId(c.getCommentId());
                 vo.setTimestamp(c.getGmtCreate().getTime());
-                vo.setComments(Arrays.asList(c));
+                List<Comment> list = new ArrayList<>(1);
+                list.add(c);
 
-                commentVOS.add(vo);
+                vo.setComments(list);
+                map.put(c.getCommentId(), list);
+//                commentVOS.add(vo);
                 continue;
             }
 
