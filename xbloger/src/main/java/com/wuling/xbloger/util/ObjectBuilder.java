@@ -131,6 +131,8 @@ public class ObjectBuilder {
 
         List<CommentVO> commentVOS = new ArrayList<>();
         Map<Long, List<Comment>> map = new HashMap<>();
+        Map<Long, Comment> parentMap = new HashMap<>();
+
         for (int i = 0; i < comments.size(); i++) {
             Comment c = comments.get(i);
             c.setIpAddr(null);
@@ -144,26 +146,36 @@ public class ObjectBuilder {
                 vo.setSessionId(c.getCommentId());
                 vo.setTimestamp(c.getGmtCreate().getTime());
                 List<Comment> list = new ArrayList<>(1);
+                c.setGroupId(c.getCommentId());
                 list.add(c);
 
                 vo.setComments(list);
                 map.put(c.getCommentId(), list);
-//                commentVOS.add(vo);
+                parentMap.put(c.getCommentId(), c);
                 continue;
             }
 
             List<Comment> list = null;
+            long groupId = 0;
 
-            if (map.containsKey(c.getReplyCommentId())) {
-                list = map.get(c.getReplyCommentId());
+            if (parentMap.containsKey(c.getReplyCommentId())) {
+                Comment parentComment = parentMap.get(c.getReplyCommentId());
+                groupId = parentComment.getGroupId();
+            }
+
+            if (map.containsKey(groupId)) {
+                list = map.get(groupId);
             }
 
             if (list == null) {
                 list = new ArrayList<>();
             }
 
+            c.setGroupId(groupId);
+
             list.add(c);
-            map.put(c.getReplyCommentId(), list);
+            map.put(groupId, list);
+            parentMap.put(c.getCommentId(), c);
 
         }
 
@@ -177,6 +189,9 @@ public class ObjectBuilder {
         }
 
         Collections.sort(commentVOS, (c1, c2) -> (int) (c1.getTimestamp() - c2.getTimestamp()));
+
+        map.clear();
+        parentMap.clear();
 
         return commentVOS;
     }

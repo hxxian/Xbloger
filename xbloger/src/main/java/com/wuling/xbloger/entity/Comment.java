@@ -47,4 +47,9 @@ public class Comment extends Entity {
     private Date gmtCreate;
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Date gmtUpdate;
+
+
+    // 扩展字段
+    @JsonIgnore
+    private long groupId;
 }
