@@ -38,4 +38,8 @@ public interface CommentMapper extends BaseMapper<Comment> {
     @Select("select * from comment where aid = #{articleId} order by id")
     @ResultMap("commentMap")
     List<Comment> listCommentByArticleId(Long articleId);
+
+    @Select("select * from comment where nickname = #{nickname} order by id desc limit 1")
+    @ResultMap("commentMap")
+    Comment getByName(String nickname);
 }
