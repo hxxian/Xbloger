@@ -20,4 +20,6 @@ public class Diary extends Entity {
     private Date gmtCreate;
     private Date gmtUpdate;
 
+    private Long timestamp;
+
 }

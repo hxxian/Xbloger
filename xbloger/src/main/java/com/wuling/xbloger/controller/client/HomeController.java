@@ -1,5 +1,6 @@
 package com.wuling.xbloger.controller.client;
 
+import com.wuling.xbloger.controller.R;
 import com.wuling.xbloger.entity.ArticleSnapshot;
 import com.wuling.xbloger.entity.ArticleType;
 import com.wuling.xbloger.entity.Diary;
@@ -7,6 +8,7 @@ import com.wuling.xbloger.entity.bo.HomeArticleBO;
 import com.wuling.xbloger.entity.vo.ArticleTitleVO;
 import com.wuling.xbloger.entity.vo.ArticleTypeVO;
 import com.wuling.xbloger.entity.vo.HomeVO;
+import com.wuling.xbloger.enumeration.ResultCodeEnum;
 import com.wuling.xbloger.service.ArticleService;
 import com.wuling.xbloger.service.ArticleTypeService;
 import com.wuling.xbloger.service.DiaryService;
@@ -72,6 +74,16 @@ public class HomeController {
         });
 
         return ResponseEntity.ok(homeVo);
+    }
+
+    @GetMapping("diary")
+    public ResponseEntity<R> getLatestDiary() {
+        Diary latestDiary = diaryService.getLatestDiary();
+        if (latestDiary != null) {
+            latestDiary.setTimestamp(latestDiary.getGmtCreate().getTime());
+        }
+        R result = new R(ResultCodeEnum.QUERY_SUCCESS, latestDiary);
+        return ResponseEntity.ok(result);
     }
 
 }
