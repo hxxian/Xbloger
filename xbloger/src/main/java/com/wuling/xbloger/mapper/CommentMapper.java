@@ -35,7 +35,7 @@ public interface CommentMapper extends BaseMapper<Comment> {
     @ResultMap("commentMap")
     List<Comment> listLatest10Comment();
 
-    @Select("select * from comment where aid = #{articleId} order by id")
+    @Select("select * from comment where aid = #{articleId} and show_state = 1 order by id")
     @ResultMap("commentMap")
     List<Comment> listCommentByArticleId(Long articleId);
 
