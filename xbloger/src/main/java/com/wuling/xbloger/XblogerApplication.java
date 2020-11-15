@@ -18,9 +18,9 @@ public class XblogerApplication extends SpringBootServletInitializer {
         SpringApplication.run(XblogerApplication.class, args);
     }
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(XblogerApplication.class);
-    }
+//    @Override
+//    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+//        return builder.sources(XblogerApplication.class);
+//    }
 
 }

@@ -35,4 +35,19 @@ public interface CommentService {
      */
     List<Comment> listCommentByArticleId(Long articleId);
 
+    /**
+     * 分页查询评论数据
+     *
+     * @param page
+     * @return
+     */
+    List<Comment> listCommentWithPage(Integer page);
+
+    /**
+     * 更新评论的显示状态
+     *
+     * @param state
+     * @param commentId
+     */
+    void updateCommentShowState(Long commentId, Integer state);
 }

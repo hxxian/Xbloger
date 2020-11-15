@@ -35,15 +35,15 @@ public interface ArticleSnapshotMapper extends BaseMapper<ArticleSnapshot> {
     @ResultMap("snapshotMap")
     List<ArticleSnapshot> listArticleSnap(Integer offset, Integer pageSize);
 
-    @Select("select * from article_snapshot where id >= " +
-            "(select id from article_snapshot where show_state = 1 order by id limit #{offset}, 1) " +
-            "and show_state = 1 order by id limit #{pageSize}")
+    @Select("select * from article_snapshot where id <= " +
+            "(select id from article_snapshot where show_state = 1 order by id desc limit #{offset}, 1) " +
+            "and show_state = 1 order by id desc limit #{pageSize}")
     @ResultMap("snapshotMap")
     List<ArticleSnapshot> listShowArticleSnap(Integer offset, Integer pageSize);
 
-    @Select("select * from article_snapshot where id >= " +
-            "(select id from article_snapshot where type_id = #{typeId} and show_state = 1 order by id limit #{offset}, 1) " +
-            "and type_id = #{typeId} and show_state = 1 order by id limit #{pageSize}")
+    @Select("select * from article_snapshot where id <= " +
+            "(select id from article_snapshot where type_id = #{typeId} and show_state = 1 order by id desc limit #{offset}, 1) " +
+            "and type_id = #{typeId} and show_state = 1 order by id desc limit #{pageSize}")
     @ResultMap("snapshotMap")
     List<ArticleSnapshot> listShowArticleSnapByTypeId(Long typeId, Integer offset, Integer pageSize);
 
@@ -76,7 +76,7 @@ public interface ArticleSnapshotMapper extends BaseMapper<ArticleSnapshot> {
      * @return
      */
     @ResultMap("snapshotMap")
-    @Select("select aid, title, publish_time, read_count from article_snapshot")
+    @Select("select aid, title, publish_time, read_count from article_snapshot where show_state = 1")
     List<ArticleSnapshot> listAllArticleWithBasicInfo();
 
     @Insert("insert into article_snapshot(type_id, aid, title, digest, publish_time, gmt_create, gmt_update) " +

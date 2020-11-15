@@ -7,6 +7,7 @@ import com.wuling.xbloger.entity.bo.LatestCommentBO;
 import com.wuling.xbloger.mapper.CommentMapper;
 import com.wuling.xbloger.service.CommentService;
 import com.wuling.xbloger.util.ObjectBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -19,7 +20,10 @@ import java.util.*;
  * @Desc: TODO
  */
 @Service
+@Slf4j
 public class CommentServiceImpl implements CommentService {
+
+    private static final int PAGE_SIZE = 10;
 
     private String latestUsedAvatarUrl;
 
@@ -79,5 +83,22 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> comments = commentMapper.listCommentByArticleId(articleId);
 
         return comments;
+    }
+
+    @Override
+    public List<Comment> listCommentWithPage(Integer page) {
+        if (page <= 0) {
+            page = 1;
+        }
+        int offset = (page - 1) * PAGE_SIZE;
+
+        List<Comment> comments = commentMapper.listCommentByPage(offset, PAGE_SIZE);
+        return comments;
+    }
+
+    @Override
+    public void updateCommentShowState(Long commentId, Integer state) {
+        int res = commentMapper.updateShowState(commentId, String.valueOf(state));
+        log.info("update res: {}", res);
     }
 }
